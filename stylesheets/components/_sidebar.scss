@@ -1,0 +1,94 @@
+$sidebar-width: 280px;
+
+h7 {
+  font-size: 0.6rem;
+  /* 這裡的數值可根據需要調整 */
+  font-weight: 700;
+  /* 與 h1-h6 標題一致的粗體字 */
+  line-height: 1.2;
+  /* 與其他標題一致的行高 */
+  margin-bottom: 0.5rem;
+  /* 標題底部的間距 */
+}
+
+// 行動版
+.sidebar {
+  width: $sidebar-width;
+  margin-left: -$sidebar-width;
+  transition: margin-left .25s;
+  position: fixed;
+  top: 0;
+  // background-color: rgb(168, 45, 65);
+
+  // 
+  .sidebar-link {
+    color: $dark;
+    display: block;
+    text-decoration: none;
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+
+    &:hover {
+      background-color: rgba($primary, 0.16);
+    }
+  }
+
+  .sidebar-link.active {
+    position: relative;
+    color: $primary !important;
+    background-color: rgba($primary, 0.16);
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 2px;
+      height: 100%;
+      width: 3px;
+      background: $primary;
+    }
+  }
+}
+
+.main {
+  width: 100%;
+}
+
+// 展開 sidebar
+.sidebar-toggled {
+  .sidebar {
+    margin-left: 0;
+  }
+
+  .main {
+    margin-left: $sidebar-width;
+    transition: margin-left .25s; //自己加的，不然 toggle 的標籤展開的時候會感覺像在瞬移
+  }
+}
+
+// 桌面版
+@include media-breakpoint-up(lg) {
+  .sidebar {
+    width: $sidebar-width;
+    margin-left: 0;
+    // background-color: rgb(168, 45, 65);
+  }
+
+  .main {
+    width: calc(100vw - #{$sidebar-width});
+    margin-left: $sidebar-width;
+    transition: margin-left .25s;
+  }
+
+  // 展開
+  .sidebar-toggled {
+    .sidebar {
+      margin-left: -$sidebar-width;
+    }
+
+    .main {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+}

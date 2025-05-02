@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Little Chapters - 後台管理</title>
+  <link rel="stylesheet" href="../stylesheets/all.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+  <div class="d-flex">
+    <aside class="sidebar vh-100 border-end d-flex bg-dark flex-column pt-3">
+      <!-- <a href="#" class="d-inline-block position-absolute border-end end-0 py-2 px-1">
+        <i class="bi bi-arrows-angle-expand"></i>
+        <i class="bi bi-caret-left-fill fs-3"></i>
+      </a> -->
+      <!-- 後台名稱 -->
+      <div class="px-4 mb-4 text-white">
+        <strong>Little Chapters </strong>- 後台管理
+      </div>
+      <!-- 選單 -->
+      <div class="overflow-auto d-flex flex-column">
+        <div class="">
+          <a href="#" class="sidebar-link text-white">
+            <div class="px-4">
+              儀表板
+            </div>
+          </a>
+
+          <a href="#" class="sidebar-link text-white">
+            <div class="px-4">
+              用戶管理
+            </div>
+          </a>
+
+          <a href="#" class="sidebar-link text-white">
+            <div class="px-4">
+              產品管理
+            </div>
+          </a>
+
+          <a href="#" class="sidebar-link text-white">
+            <div class="px-4">
+              產品分類管理
+            </div>
+          </a>
+
+          <a href="#" class="sidebar-link text-white">
+            <div class="px-4">
+              訂單管理
+            </div>
+          </a>
+
+          <a href="#" class="sidebar-link text-white">
+            <div class="px-4">
+              折扣碼
+            </div>
+          </a>
+
+          <a href="#" class="sidebar-link text-white">
+            <div class="px-4">
+              精選產品
+            </div>
+          </a>
+
+          <a href="#" class="sidebar-link text-white">
+            <div class="px-4">
+              通知
+            </div>
+          </a>
+
+          <a href="#" class="sidebar-link text-white">
+            <div class="px-4">
+              訊息
+            </div>
+          </a>
+        </div>
+
+        <!-- 有子選單的結構 -->
+        <!-- <div>
+          <a href="#menu-order" class="sidebar-link" data-bs-toggle="">
+            <div class="d-flex justify-content-between px-4">
+              <p>
+                用戶管理
+              </p>
+              <i class="bi bi-caret-down border-0 p-0 m-0" data-bs-toggle="collapse" data-bs-target="#menu-order"></i>
+            </div>
+          </a>
+
+          <div class="collapse" id="menu-order">
+            <a href="#" class="sidebar-link">
+              <div class="ps-5">
+                子項目1
+              </div>
+            </a>
+          </div>
+        </div> -->
+
+
+        <div class="sidebar-link px-4 text-white">
+          登出
+        </div>
+        </a>
+
+      </div>
+    </aside>
+  </div>
+
+  </div>
+  <!-- 登出按鈕 -->
+  <!-- <a href="#" class="sidebar-link">
+    <div class="px-4">
+      登出
+    </div>
+  </a> -->
+  </aside>
+
+  <main class="main">
+    <div class="bg-white w-100 border-bottom sticky-top">
+      <div class="d-flex p-2 justify-content-between">
+        <a href="#" class="d-inline-block py-2 px-3 border-end" id="toggle-btn">
+          <i class="bi bi-arrows-angle-expand"></i>
+        </a>
+
+        <div class="notification d-flex">
+          <div class="d-flex border rounded-pill bg-warning me-2 p-1 note-pill">
+            <span><i class="bi bi-currency-dollar"></i></span>
+            <span>待發貨訂單：</span>
+            <span class="border border-secondary bg-gradient rounded-pill bg-transparent">42</span>
+          </div>
+          <div class="d-flex border rounded-pill bg-danger me-2 p-1 note-pill">
+            <span><i class="bi bi-currency-dollar"></i></span>
+            <span>待處理退貨：</span>
+            <span class="border border-secondary bg-gradient rounded-pill">18</span>
+          </div>
+          <div class="d-flex border rounded-pill bg-info bg-gradient me-2 p-1 note-pill">
+            <span><i class="bi bi-currency-dollar"></i></span>
+            <span>最近通知：</span>
+            <span class="border border-secondary bg-gradient rounded-pill">5</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+    <!-- 主要內容 -->
+    <div class="mt-5 vh-100">
+      <div class="row mx-auto row-cols-4 g-4 mb-4">
+        <div class="col">
+          <div class="card">
+            <div class="card-body text-end">
+              <div class="card-subtitle d-flex justify-content-between h6">
+                <p class="">本月收入</p>
+                <!-- <strong>$</strong> -->
+                <i class="bi bi-currency-dollar"></i>
+              </div>
+
+              <strong class="h3 d-block">$15,231</strong>
+
+              <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                                      card's content.
+                                    </p> -->
+              <h7 class="text-muted">較上月增長 20.8 %</h7>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card">
+            <div class="card-body text-end">
+              <div class="card-subtitle d-flex justify-content-between h6">
+                <p class="">圖書銷量</p>
+                <!-- <strong>$</strong> -->
+                <i class="bi bi-book"></i>
+              </div>
+
+              <strong class="h3 d-block">2,350</strong>
+
+
+              <h7 class="text-muted">較上月增長 20.8 %</h7>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card">
+            <div class="card-body text-end">
+              <div class="card-subtitle d-flex justify-content-between h6">
+                <p class="">訂單數量</p>
+                <!-- <strong>$</strong> -->
+                <i class="bi bi-cart"></i>
+              </div>
+
+              <strong class="h3 d-block">588</strong>
+              <h7 class="text-muted">較上月增長 20.8 %</h7>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card">
+            <div class="card-body text-end">
+              <div class="card-subtitle d-flex justify-content-between h6">
+                <p class="">當前月份</p>
+                <!-- <strong>$</strong> -->
+                <i class="bi bi-calendar"></i>
+              </div>
+
+              <strong class="h3 d-block">2025 年 4 月</strong>
+              <h7 class="text-muted">較上月增長 20.8 %</h7>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Chart -->
+
+      <div class="row mx-auto">
+        <div class="col">
+          <div class="card">
+            <div class="car-body">
+              <canvas id="bar-chart" class="img-fluid"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <div class="card">
+            <div class="car-body">
+              <canvas id="pie-chart" class="img-fluid"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header "></div>
+      </div>
+
+
+    </div>
+
+
+
+
+    <!-- Chart JS code -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      (() => {
+        const chartColors = {
+          red: 'rgb(255, 99, 132)',
+          orange: 'rgb(255, 159, 64)',
+          yellow: 'rgb(255, 205, 86)',
+          green: 'rgb(75, 192, 192)',
+          blue: 'rgb(54, 162, 235)',
+          purple: 'rgb(153, 102, 255)',
+          grey: 'rgb(201, 203, 207)'
+        };
+
+        let randomScalingFactor = function () {
+          return Math.round(Math.random() * 2000000);
+        };
+
+        const pieCtx = document.getElementById('pie-chart').getContext('2d');
+        const barCtx = document.getElementById('bar-chart').getContext('2d');
+
+        const config = {
+          type: 'pie',
+          data: {
+            datasets: [{
+              data: [
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+              ],
+              backgroundColor: [
+                chartColors.red,
+                chartColors.orange,
+                chartColors.yellow,
+                chartColors.green,
+                chartColors.blue,
+              ],
+              label: 'Dataset 1'
+            }],
+            labels: [
+              '科學知識',
+              '藝術創作',
+              '生活教育',
+              '奇幻',
+              '動物',
+              '音樂'
+            ]
+          },
+          options: {
+            responsive: true
+          }
+        };
+
+        const barConfig = {
+          type: 'bar',
+          data: {
+            datasets: [{
+              data: [
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+              ],
+              backgroundColor: [
+                chartColors.red,
+                chartColors.orange,
+                chartColors.yellow,
+                chartColors.green,
+                chartColors.blue,
+                chartColors.purple,
+              ],
+              label: 'Dataset 1'
+            }],
+            labels: [
+              '一月',
+              '二月',
+              '三月',
+              '四月',
+              '五月',
+              '六月',
+            ]
+          },
+          options: {
+            responsive: true
+          }
+        };
+
+
+        const pieChart = new Chart(pieCtx, config);
+        const barChart = new Chart(barCtx, barConfig);
+
+      })();
+    </script>
+    <!-- Chart End-->
+    <!-- <hr> -->
+    </div>
+
+
+  </main>
+  </div>
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+  <script src="./javascripts/all.js"></script>
+</body>
+</html>
