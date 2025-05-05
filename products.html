@@ -113,11 +113,300 @@
       </div>
 
       <!-- 主要內容 -->
-      <div>
-        <p>這裡是產品管理頁面</p>
+      <div class="mt-5">
+        <div class="card">
+          <div class="card-header bg-white bg-transparent d-flex">
+            <div class="input-group me-2">
+              <span class="input-group-text border-0 bg-transparent pe-0">
+                <i class="bi bi-search"></i>
+              </span>
+              <input type="search" class="form-control border-0 shadow-none">
+            </div>
+
+            <div class="dropdown me-2">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                所有角色
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                <li><a class="dropdown-item active" href="#">所有角色</a></li>
+                <li><a class="dropdown-item" href="#">管理員</a></li>
+                <li><a class="dropdown-item" href="#">VIP</a></li>
+                <li><a class="dropdown-item" href="#">客戶</a></li>
+              </ul>
+            </div>
+
+            <div class="dropdown me-2">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                所有狀態
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                <li><a class="dropdown-item active" href="#">所有狀態</a></li>
+                <li><a class="dropdown-item" href="#">已啟用</a></li>
+                <li><a class="dropdown-item" href="#">已禁用</a></li>
+              </ul>
+            </div>
+
+            <div class="btn-sm bg-dark rounded">
+              <button type="button" class="btn btn-dark text-nowrap">+ 添加用戶</button>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <table class="table table-hover align-middle">
+              <thead>
+                <tr>
+                  <th scope="col"><input type="checkbox" /></th>
+                  <th scope="col">姓名</th>
+                  <th scope="col">郵箱</th>
+                  <th scope="col">電話</th>
+                  <th scope="col">角色</th>
+                  <th scope="col">狀態</th>
+                  <th scope="col">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td class="py-3">張小紅</td>
+                  <td>xiaohong.zhang@email.com</td>
+                  <td>0912345678</td>
+                  <td>
+                    <span class="badge bg-primary">客戶</span>
+                  </td>
+                  <td>
+                    <span class="text-success me-1">●</span>
+                    已啟用
+                  </td>
+                  <td>
+                    <div class="dropdown">
+                      <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots fs-6"></i>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
+                        <li>
+                          <a class="dropdown-item" href="userManagement.html?editId=1">
+                            編輯
+                          </a>
+                        </li>
+                        <li>
+                          <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                          <a class="dropdown-item text-danger" href="#"
+                            onclick="if(confirm('確定要刪除嗎？')) location.href='userManagement.html?deleteId=1';">
+                            刪除
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td class="py-3">李明</td>
+                  <td>ming.li@email.com</td>
+                  <td>0923456789</td>
+                  <td>
+                    <span class="badge bg-primary">客戶</span>
+                  </td>
+                  <td>
+                    <span class="text-success me-1">●</span>
+                    已啟用
+                  </td>
+                  <td>
+                    <div class="dropdown">
+                      <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots fs-6"></i>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
+                        <li>
+                          <a class="dropdown-item" href="userManagement.html?editId=1">
+                            編輯
+                          </a>
+                        </li>
+                        <li>
+                          <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                          <a class="dropdown-item text-danger" href="#"
+                            onclick="if(confirm('確定要刪除嗎？')) location.href='userManagement.html?deleteId=1';">
+                            刪除
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td class="py-3">王芳</td>
+                  <td>fang.wang@email.com</td>
+                  <td>0934567890</td>
+                  <td>
+                    <span class="badge bg-warning text-dark">VIP</span>
+                  </td>
+                  <td>
+                    <span class="text-success me-1">●</span>
+                    已啟用
+                  </td>
+                  <td>
+                    <div class="dropdown">
+                      <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots fs-6"></i>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
+                        <li>
+                          <a class="dropdown-item" href="userManagement.html?editId=1">
+                            編輯
+                          </a>
+                        </li>
+                        <li>
+                          <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                          <a class="dropdown-item text-danger" href="#"
+                            onclick="if(confirm('確定要刪除嗎？')) location.href='userManagement.html?deleteId=1';">
+                            刪除
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td class="py-3">趙偉</td>
+                  <td>wei.zhao@email.com</td>
+                  <td>0945678901</td>
+                  <td>
+                    <span class="badge bg-primary">客戶</span>
+                  </td>
+                  <td>
+                    <span class="text-secondary me-1">●</span>
+                    已禁用
+                  </td>
+                  <td>
+                    <div class="dropdown">
+                      <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots fs-6"></i>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
+                        <li>
+                          <a class="dropdown-item" href="userManagement.html?editId=1">
+                            編輯
+                          </a>
+                        </li>
+                        <li>
+                          <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                          <a class="dropdown-item text-danger" href="#"
+                            onclick="if(confirm('確定要刪除嗎？')) location.href='userManagement.html?deleteId=1';">
+                            刪除
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td class="py-3">陳靜</td>
+                  <td>jing.chen@email.com</td>
+                  <td>0956789012</td>
+                  <td>
+                    <span class="badge" style="background-color: #c084fc; color: #fff;">管理員</span>
+                  </td>
+                  <td>
+                    <span class="text-success me-1">●</span>
+                    已啟用
+                  </td>
+                  <td>
+                    <div class="dropdown">
+                      <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots fs-6"></i>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
+                        <li>
+                          <a class="dropdown-item" href="userManagement.html?editId=1">
+                            編輯
+                          </a>
+                        </li>
+                        <li>
+                          <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                          <a class="dropdown-item text-danger" href="#"
+                            onclick="if(confirm('確定要刪除嗎？')) location.href='userManagement.html?deleteId=1';">
+                            刪除
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+            <!-- 放在 table 之後，body 底部也可以 -->
+            <!-- 操作 Modal -->
+            <div class="modal fade" id="actionModal1" tabindex="-1" aria-labelledby="actionModalLabel1"
+              aria-hidden="true">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="actionModalLabel1">操作</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
+                  </div>
+                  <div class="modal-body p-0">
+                    <button type="button" class="btn btn-light w-100 text-start py-2"
+                      onclick="location.href='userManagement.html?editId=1'">
+                      編輯
+                    </button>
+                    <hr class="my-0">
+                    <button type="button" class="btn btn-light w-100 text-start py-2 text-danger">
+                      刪除
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
+
+      <nav class="mt-2" aria-label="Page navigation example">
+        <ul class="pagination justify-content-center pagination-white">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </main>
   </div>
+
+  <!-- 操作 ... -->
+
+  <!-- 尚未開發 -->
+  <!-- checkbox 選取全部功能 -->
 
   <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
