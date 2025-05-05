@@ -114,21 +114,29 @@
 
       <!-- 主要內容 -->
       <div class="mt-5">
-        <div class="card">
+        <div class="card border-0">
           <div class="card-header bg-white bg-transparent d-flex">
             <div class="input-group me-2">
-              <span class="input-group-text border-0 bg-transparent pe-0">
+              <span class="input-group-text border-0 bg-transparent">
                 <i class="bi bi-search"></i>
               </span>
-              <input type="search" class="form-control border-0 shadow-none">
+              <input type="search" class="form-control shadow-none">
             </div>
 
+
+            <div class="btn-sm bg-dark rounded">
+              <button type="button" class="btn btn-dark text-nowrap">+ 添加商品</button>
+            </div>
+          </div>
+
+          <!-- card-header -->
+          <div class="card-header d-flex">
             <div class="dropdown me-2">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+              <button class="btn bg-white border dropdown-toggle" type="button" id="dropdownMenuButton2"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                所有角色
+                所有主題
               </button>
-              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                 <li><a class="dropdown-item active" href="#">所有角色</a></li>
                 <li><a class="dropdown-item" href="#">管理員</a></li>
                 <li><a class="dropdown-item" href="#">VIP</a></li>
@@ -137,19 +145,27 @@
             </div>
 
             <div class="dropdown me-2">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+              <button class="btn bg-white border dropdown-toggle" type="button" id="dropdownMenuButton2"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                所有狀態
+                所有年齡
               </button>
-              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                 <li><a class="dropdown-item active" href="#">所有狀態</a></li>
                 <li><a class="dropdown-item" href="#">已啟用</a></li>
                 <li><a class="dropdown-item" href="#">已禁用</a></li>
               </ul>
             </div>
 
-            <div class="btn-sm bg-dark rounded">
-              <button type="button" class="btn btn-dark text-nowrap">+ 添加用戶</button>
+            <div class="dropdown me-2">
+              <button class="btn bg-white border dropdown-toggle" type="button" id="dropdownMenuButton2"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                所有狀態
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <li><a class="dropdown-item active" href="#">所有狀態</a></li>
+                <li><a class="dropdown-item" href="#">已啟用</a></li>
+                <li><a class="dropdown-item" href="#">已禁用</a></li>
+              </ul>
             </div>
           </div>
 
@@ -158,27 +174,103 @@
               <thead>
                 <tr>
                   <th scope="col"><input type="checkbox" /></th>
-                  <th scope="col">姓名</th>
-                  <th scope="col">郵箱</th>
-                  <th scope="col">電話</th>
-                  <th scope="col">角色</th>
+                  <th scope="col">ID</th>
+                  <th scope="col">封面</th>
+                  <th scope="col">名稱</th>
+                  <th scope="col">作者</th>
+                  <th scope="col">價格</th>
+                  <th scope="col">庫存</th>
                   <th scope="col">狀態</th>
+                  <th scope="col">主題</th>
+                  <th scope="col">年齡層</th>
                   <th scope="col">操作</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td><input type="checkbox" /></td>
-                  <td class="py-3">張小紅</td>
-                  <td>xiaohong.zhang@email.com</td>
-                  <td>0912345678</td>
+                  <!-- ID -->
+                  <td class="py-3">1</td>
+                  <!-- 書籍封面 -->
+                  <td><img src="#" alt="書籍封面" class="img-fluid"></td>
+                  <!-- 名稱 -->
+                  <td>薛丁格的貓</td>
+                  <!-- 作者 -->
+                  <td>陳詠棠</td>
+                  <!-- 價格 -->
+                  <td><i class="bi bi-currency-dollar"></i>399</td>
+                  <!-- 庫存 -->
+                  <td>30</td>
+                  <!-- 狀態 -->
                   <td>
-                    <span class="badge bg-primary">客戶</span>
+                    <span class="badge bg-dark">已上架</span>
                   </td>
+                  <!-- 主題 -->
                   <td>
-                    <span class="text-success me-1">●</span>
-                    已啟用
+                    科學啟蒙
                   </td>
+                  <!-- 年齡層 -->
+                  <td>
+                    5-8
+                  </td>
+                  <!-- 操作 -->
+                  <td>
+                    <div class="dropdown">
+                      <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots fs-6"></i>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
+                        <li>
+                          <a class="dropdown-item" href="userManagement.html?editId=1">
+                            下架
+                          </a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="userManagement.html?editId=1">
+                            編輯
+                          </a>
+                        </li>
+                        <li>
+                          <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                          <a class="dropdown-item text-danger" href="#"
+                            onclick="if(confirm('確定要刪除嗎？')) location.href='userManagement.html?deleteId=1';">
+                            刪除
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <!-- ID -->
+                  <td class="py-3">2</td>
+                  <!-- 書籍封面 -->
+                  <td><img src="#" alt="書籍封面" class="img-fluid"></td>
+                  <!-- 名稱 -->
+                  <td>森林裡的音樂大師</td>
+                  <!-- 作者 -->
+                  <td>Polly Noakes</td>
+                  <!-- 價格 -->
+                  <td><i class="bi bi-currency-dollar"></i>650</td>
+                  <!-- 庫存 -->
+                  <td>52</td>
+                  <!-- 狀態 -->
+                  <td>
+                    <span class="badge bg-dark">已上架</span>
+                  </td>
+                  <!-- 主題 -->
+                  <td>
+                    音樂欣賞
+                  </td>
+                  <!-- 年齡層 -->
+                  <td>
+                    0-3
+                  </td>
+                  <!-- 操作 -->
                   <td>
                     <div class="dropdown">
                       <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1"
@@ -206,16 +298,88 @@
                 </tr>
                 <tr>
                   <td><input type="checkbox" /></td>
-                  <td class="py-3">李明</td>
-                  <td>ming.li@email.com</td>
-                  <td>0923456789</td>
+                  <!-- ID -->
+                  <td class="py-3">3</td>
+                  <!-- 書籍封面 -->
+                  <td><img src="#" alt="書籍封面" class="img-fluid"></td>
+                  <!-- 名稱 -->
+                  <td>薛丁格的貓</td>
+                  <!-- 作者 -->
+                  <td>陳詠棠</td>
+                  <!-- 價格 -->
+                  <td><i class="bi bi-currency-dollar"></i>399</td>
+                  <!-- 庫存 -->
+                  <td>30</td>
+                  <!-- 狀態 -->
                   <td>
-                    <span class="badge bg-primary">客戶</span>
+                    <span class="badge bg-dark">已上架</span>
                   </td>
+                  <!-- 主題 -->
                   <td>
-                    <span class="text-success me-1">●</span>
-                    已啟用
+                    科學啟蒙
                   </td>
+                  <!-- 年齡層 -->
+                  <td>
+                    5-8
+                  </td>
+                  <!-- 操作 -->
+                  <td>
+                    <div class="dropdown">
+                      <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots fs-6"></i>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
+                        <li>
+                          <a class="dropdown-item" href="userManagement.html?editId=1">
+                            下架
+                          </a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="userManagement.html?editId=1">
+                            編輯
+                          </a>
+                        </li>
+                        <li>
+                          <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                          <a class="dropdown-item text-danger" href="#"
+                            onclick="if(confirm('確定要刪除嗎？')) location.href='userManagement.html?deleteId=1';">
+                            刪除
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <!-- ID -->
+                  <td class="py-3">4</td>
+                  <!-- 書籍封面 -->
+                  <td><img src="#" alt="書籍封面" class="img-fluid"></td>
+                  <!-- 名稱 -->
+                  <td>森林裡的音樂大師</td>
+                  <!-- 作者 -->
+                  <td>Polly Noakes</td>
+                  <!-- 價格 -->
+                  <td><i class="bi bi-currency-dollar"></i>650</td>
+                  <!-- 庫存 -->
+                  <td>52</td>
+                  <!-- 狀態 -->
+                  <td>
+                    <span class="badge bg-white border text-dark">已下架</span>
+                  </td>
+                  <!-- 主題 -->
+                  <td>
+                    音樂欣賞
+                  </td>
+                  <!-- 年齡層 -->
+                  <td>
+                    0-3
+                  </td>
+                  <!-- 操作 -->
                   <td>
                     <div class="dropdown">
                       <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1"
@@ -243,16 +407,31 @@
                 </tr>
                 <tr>
                   <td><input type="checkbox" /></td>
-                  <td class="py-3">王芳</td>
-                  <td>fang.wang@email.com</td>
-                  <td>0934567890</td>
+                  <!-- ID -->
+                  <td class="py-3">5</td>
+                  <!-- 書籍封面 -->
+                  <td><img src="#" alt="書籍封面" class="img-fluid"></td>
+                  <!-- 名稱 -->
+                  <td>薛丁格的貓</td>
+                  <!-- 作者 -->
+                  <td>陳詠棠</td>
+                  <!-- 價格 -->
+                  <td><i class="bi bi-currency-dollar"></i>399</td>
+                  <!-- 庫存 -->
+                  <td>30</td>
+                  <!-- 狀態 -->
                   <td>
-                    <span class="badge bg-warning text-dark">VIP</span>
+                    <span class="badge bg-white border text-dark">已下架</span>
                   </td>
+                  <!-- 主題 -->
                   <td>
-                    <span class="text-success me-1">●</span>
-                    已啟用
+                    科學啟蒙
                   </td>
+                  <!-- 年齡層 -->
+                  <td>
+                    5-8
+                  </td>
+                  <!-- 操作 -->
                   <td>
                     <div class="dropdown">
                       <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1"
@@ -262,78 +441,9 @@
                       <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
                         <li>
                           <a class="dropdown-item" href="userManagement.html?editId=1">
-                            編輯
+                            下架
                           </a>
                         </li>
-                        <li>
-                          <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                          <a class="dropdown-item text-danger" href="#"
-                            onclick="if(confirm('確定要刪除嗎？')) location.href='userManagement.html?deleteId=1';">
-                            刪除
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" /></td>
-                  <td class="py-3">趙偉</td>
-                  <td>wei.zhao@email.com</td>
-                  <td>0945678901</td>
-                  <td>
-                    <span class="badge bg-primary">客戶</span>
-                  </td>
-                  <td>
-                    <span class="text-secondary me-1">●</span>
-                    已禁用
-                  </td>
-                  <td>
-                    <div class="dropdown">
-                      <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-three-dots fs-6"></i>
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
-                        <li>
-                          <a class="dropdown-item" href="userManagement.html?editId=1">
-                            編輯
-                          </a>
-                        </li>
-                        <li>
-                          <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                          <a class="dropdown-item text-danger" href="#"
-                            onclick="if(confirm('確定要刪除嗎？')) location.href='userManagement.html?deleteId=1';">
-                            刪除
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" /></td>
-                  <td class="py-3">陳靜</td>
-                  <td>jing.chen@email.com</td>
-                  <td>0956789012</td>
-                  <td>
-                    <span class="badge" style="background-color: #c084fc; color: #fff;">管理員</span>
-                  </td>
-                  <td>
-                    <span class="text-success me-1">●</span>
-                    已啟用
-                  </td>
-                  <td>
-                    <div class="dropdown">
-                      <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-three-dots fs-6"></i>
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
                         <li>
                           <a class="dropdown-item" href="userManagement.html?editId=1">
                             編輯
