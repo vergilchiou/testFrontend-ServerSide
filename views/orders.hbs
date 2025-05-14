@@ -1,0 +1,266 @@
+<!-- 主要內容 -->
+<div class="mt-5">
+
+  <div class="card border-0 px-2">
+
+    <!-- <div class="container py-4"> -->
+    <!-- 1. 標題 & 搜尋 + 按鈕 -->
+    <div class="card-header bg-white bg-transparent d-flex">
+      <div class="input-group me-2">
+        <span class="input-group-text border-0 bg-transparent">
+          <i class="bi bi-search"></i>
+        </span>
+        <input type="search" class="form-control shadow-none">
+      </div>
+
+
+      <div class="btn-sm bg-dark rounded">
+        <button type="button" class="btn btn-dark text-nowrap">+ 新增訂單</button>
+      </div>
+    </div>
+
+    <!-- 2. 篩選區 -->
+    <div class="d-flex flex-wrap gap-2 mb-4 mt-2">
+      <!-- 訂單狀態 -->
+      <div class="dropdown">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterOrderStatus"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          所有訂單狀態
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="filterOrderStatus">
+          <li><a class="dropdown-item" href="#">訂單成立</a></li>
+          <li><a class="dropdown-item" href="#">待出貨</a></li>
+          <li><a class="dropdown-item" href="#">已出貨</a></li>
+        </ul>
+      </div>
+      <!-- 付款狀態 -->
+      <div class="dropdown">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterPaymentStatus"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          所有付款狀態
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="filterPaymentStatus">
+          <li><a class="dropdown-item" href="#">未付款</a></li>
+          <li><a class="dropdown-item" href="#">已付款</a></li>
+        </ul>
+      </div>
+      <!-- 運送狀態 -->
+      <div class="dropdown">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterDeliveryStatus"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          所有運送狀態
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="filterDeliveryStatus">
+          <li><a class="dropdown-item" href="#">尚未開始</a></li>
+          <li><a class="dropdown-item" href="#">運送中</a></li>
+          <li><a class="dropdown-item" href="#">已到貨</a></li>
+        </ul>
+      </div>
+      <!-- 選擇日期 -->
+      <div>
+        <input type="date" class="form-control" placeholder="選擇日期" aria-label="選擇日期" />
+      </div>
+      <!-- 金額篩選 -->
+      <div class="dropdown">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterAmount"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          所有金額
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="filterAmount">
+          <li><a class="dropdown-item" href="#">$0 - $10</a></li>
+          <li><a class="dropdown-item" href="#">$10 - $20</a></li>
+          <li><a class="dropdown-item" href="#">$20 以上</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 3. 資料表 -->
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th scope="col"><input type="checkbox" /></th>
+            <th scope="col">訂單編號</th>
+            <th scope="col">客戶</th>
+            <th scope="col">日期</th>
+            <th scope="col">訂單狀態</th>
+            <th scope="col">付款狀態</th>
+            <th scope="col">運送狀態</th>
+            <th scope="col">金額</th>
+            <th scope="col">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 範例列 1 -->
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td class="text-start">#3210</td>
+            <td class="text-start">Olivia Martin</td>
+            <td>2023-04-23</td>
+            <td>
+              <span class="badge bg-info">訂單成立</span>
+            </td>
+            <td>
+              <span class="badge bg-danger">未付款</span>
+            </td>
+            <td>
+              <span class="badge bg-secondary">尚未開始</span>
+            </td>
+            <td>$25.00</td>
+            <td>
+              <div class="dropdown">
+                <button class="btn btn-link text-dark p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>編輯</a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item text-danger" href="#" onclick="return confirm('確定要刪除嗎？')">
+                      <i class="bi bi-trash me-2"></i>刪除
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <!-- 範例 2 -->
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td class="text-start">#3209</td>
+            <td class="text-start">Vergil Chiu</td>
+            <td>2023-04-23</td>
+            <td>
+              <span class="badge bg-warning">待出貨</span>
+            </td>
+            <td>
+              <span class="badge bg-success">已付款</span>
+            </td>
+            <td>
+              <span class="badge bg-success">已到貨</span>
+            </td>
+            <td>$25.00</td>
+            <td>
+              <div class="dropdown">
+                <button class="btn btn-link text-dark p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>編輯</a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item text-danger" href="#" onclick="return confirm('確定要刪除嗎？')">
+                      <i class="bi bi-trash me-2"></i>刪除
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+
+          <!-- 範例 3 -->
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td class="text-start">#3209</td>
+            <td class="text-start">Tz Chi Chiu</td>
+            <td>2023-04-23</td>
+            <td>
+              <span class="badge bg-success">已出貨</span>
+            </td>
+            <td>
+              <span class="badge bg-success">已付款</span>
+            </td>
+            <td>
+              <span class="badge bg-primary">運送中</span>
+            </td>
+            <td>$25.00</td>
+            <td>
+              <div class="dropdown">
+                <button class="btn btn-link text-dark p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>編輯</a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item text-danger" href="#" onclick="return confirm('確定要刪除嗎？')">
+                      <i class="bi bi-trash me-2"></i>刪除
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+
+          <!-- 範例 4 -->
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td class="text-start">#3209</td>
+            <td class="text-start">Kazami Hayado</td>
+            <td>2023-05-01</td>
+            <td>
+              <span class="badge bg-success">已出貨</span>
+            </td>
+            <td>
+              <span class="badge bg-success">已付款</span>
+            </td>
+            <td>
+              <span class="badge bg-success">已收貨</span>
+            </td>
+            <td>$25.00</td>
+            <td>
+              <div class="dropdown">
+                <button class="btn btn-link text-dark p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>編輯</a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item text-danger" href="#" onclick="return confirm('確定要刪除嗎？')">
+                      <i class="bi bi-trash me-2"></i>刪除
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <!-- 其他列… -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 4. 資料筆數 & 分頁 -->
+    <nav class="mt-2" aria-label="Page navigation example">
+      <ul class="pagination justify-content-center pagination-white">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>

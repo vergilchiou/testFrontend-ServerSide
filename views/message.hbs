@@ -1,0 +1,70 @@
+<div class="container py-4">
+  <h4 class="fw-bold mb-4">訊息管理</h4>
+
+  <div class="d-flex mb-3">
+    <div class="flex-grow-1">
+      <input type="search" class="form-control" placeholder="搜尋訊息...">
+    </div>
+    <select class="form-select w-auto ms-2">
+      <option selected>所有狀態</option>
+      <option value="read">已讀</option>
+      <option value="unread">未讀</option>
+      <option value="replied">已回覆</option>
+    </select>
+  </div>
+
+  <table class="table align-middle">
+    <thead>
+      <tr>
+        <th scope="col">寄件人</th>
+        <th scope="col">主旨</th>
+        <th scope="col">訊息</th>
+        <th scope="col">日期</th>
+        <th scope="col">狀態</th>
+        <th scope="col">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each messages}}
+      <tr>
+        <td>{{this.sender}}</td>
+        <td>{{this.subject}}</td>
+        <td>{{this.message}}</td>
+        <td>{{this.date}}</td>
+        <td>
+          <span class="badge bg-{{this.statusBadge}}">{{this.status}}</span>
+        </td>
+        <td>
+          <div class="dropdown">
+            <button class="btn p-0 border-0 bg-transparent" type="button" data-bs-toggle="dropdown">
+              <i class="bi bi-three-dots"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">回覆</a></li>
+              <li><a class="dropdown-item text-danger" href="#">刪除</a></li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <nav class="mt-2" aria-label="Page navigation example">
+    <ul class="pagination justify-content-center pagination-white">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

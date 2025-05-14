@@ -1,0 +1,202 @@
+<!-- 主要內容 -->
+<div class="mt-5 vh-100">
+  <div class="row mx-auto row-cols-4 g-4 mb-4">
+    <div class="col">
+      <div class="card">
+        <div class="card-body text-end">
+          <div class="card-subtitle d-flex justify-content-between h6">
+            <p class="">本月收入</p>
+            <!-- <strong>$</strong> -->
+            <i class="bi bi-currency-dollar"></i>
+          </div>
+
+          <strong class="h3 d-block">$15,231</strong>
+
+          <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                                      card's content.
+                                    </p> -->
+          <h7 class="text-muted">較上月增長 20.8 %</h7>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card">
+        <div class="card-body text-end">
+          <div class="card-subtitle d-flex justify-content-between h6">
+            <p class="">圖書銷量</p>
+            <!-- <strong>$</strong> -->
+            <i class="bi bi-book"></i>
+          </div>
+
+          <strong class="h3 d-block">2,350</strong>
+
+
+          <h7 class="text-muted">較上月增長 20.8 %</h7>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card">
+        <div class="card-body text-end">
+          <div class="card-subtitle d-flex justify-content-between h6">
+            <p class="">訂單數量</p>
+            <!-- <strong>$</strong> -->
+            <i class="bi bi-cart"></i>
+          </div>
+
+          <strong class="h3 d-block">588</strong>
+          <h7 class="text-muted">較上月增長 20.8 %</h7>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card">
+        <div class="card-body text-end">
+          <div class="card-subtitle d-flex justify-content-between h6">
+            <p class="">當前月份</p>
+            <!-- <strong>$</strong> -->
+            <i class="bi bi-calendar"></i>
+          </div>
+
+          <strong class="h3 d-block">2025 年 4 月</strong>
+          <h7 class="text-muted">較上月增長 20.8 %</h7>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Chart -->
+
+  <div class="row mx-auto">
+    <div class="col">
+      <div class="card">
+        <div class="car-body">
+          <canvas id="bar-chart" class="img-fluid"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="card">
+        <div class="car-body">
+          <canvas id="pie-chart" class="img-fluid"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<!-- Chart JS code -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  (() => {
+    const chartColors = {
+      red: 'rgb(255, 99, 132)',
+      orange: 'rgb(255, 159, 64)',
+      yellow: 'rgb(255, 205, 86)',
+      green: 'rgb(75, 192, 192)',
+      blue: 'rgb(54, 162, 235)',
+      purple: 'rgb(153, 102, 255)',
+      grey: 'rgb(201, 203, 207)'
+    };
+
+    let randomScalingFactor = function () {
+      return Math.round(Math.random() * 2000000);
+    };
+
+    const pieCtx = document.getElementById('pie-chart').getContext('2d');
+    const barCtx = document.getElementById('bar-chart').getContext('2d');
+
+    const config = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: [
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+          ],
+          backgroundColor: [
+            chartColors.red,
+            chartColors.orange,
+            chartColors.yellow,
+            chartColors.green,
+            chartColors.blue,
+          ],
+          label: 'Dataset 1'
+        }],
+        labels: [
+          '科學知識',
+          '藝術創作',
+          '生活教育',
+          '奇幻',
+          '動物',
+          '音樂'
+        ]
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    const barConfig = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: [
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+          ],
+          backgroundColor: [
+            chartColors.red,
+            chartColors.orange,
+            chartColors.yellow,
+            chartColors.green,
+            chartColors.blue,
+            chartColors.purple,
+          ],
+          label: 'Dataset 1'
+        }],
+        labels: [
+          '一月',
+          '二月',
+          '三月',
+          '四月',
+          '五月',
+          '六月',
+        ]
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+
+    const pieChart = new Chart(pieCtx, config);
+    const barChart = new Chart(barCtx, barConfig);
+
+  })();
+</script>
+<!-- Chart End-->
+<!-- <hr> -->
+</div>
+
+
+
+</div>
