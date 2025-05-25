@@ -34,17 +34,25 @@
           <li class="px-3 py-2">
             <div class="fw-bold">管理者</div>
             <hr class="my-1">
-            <div>姓名：管理者一號</div>
+            <div id="adminName"></div>
             <!-- <div>姓名：{{admin.name}}</div> -->
-            <div>信箱：admin@gmail.com</div>
+            <div id="adminEmail"></div>
             <!-- <div>信箱：{{admin.email}}</div> -->
           </li>
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><a class="dropdown-item text-danger" href="/admin/logout">登出</a></li>
+          <li><a class="dropdown-item text-danger" href="#" onclick="logout()">登出</a></li>
         </ul>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  function logout() {
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminInfo");
+    window.location.href = "/admin/login";
+  }
+</script>

@@ -1,16 +1,21 @@
 <div class="container py-5" style="max-width: 400px;">
   <h4 class="text-center fw-bold mb-4">管理者登入</h4>
 
-  <form>
+  <form id="adminLoginForm">
     <div class="mb-3">
-      <label for="adminEmail" class="form-label">帳號</label>
-      <input type="email" class="form-control" id="adminEmail" placeholder="請輸入Email">
+      <label for="adminEnterEmail" class="form-label">帳號</label>
+      <div class="input-group">
+        <input type="email" class="form-control" id="adminEnterEmail" placeholder="請輸入Email">
+        <button class="btn btn-outline-secondary" type="button">
+          <i class="bi bi-envelope"></i>
+        </button>
+      </div>
     </div>
 
     <div class="mb-1">
-      <label for="adminPassword" class="form-label">密碼</label>
+      <label for="adminEnterPassword" class="form-label">密碼</label>
       <div class="input-group">
-        <input type="password" class="form-control" id="adminPassword" placeholder="請輸入密碼">
+        <input type="password" class="form-control" id="adminEnterPassword" placeholder="請輸入密碼">
         <button class="btn btn-outline-secondary" type="button">
           <i class="bi bi-eye-slash"></i>
         </button>
@@ -25,9 +30,9 @@
         <input class="form-check-input me-1" type="checkbox" id="rememberMe">
         <label class="form-check-label" for="rememberMe">記住我</label>
       </div>
-      <div class="text-end">
+      <!-- <div class="text-end">
         尚未加入？→<a href="#">馬上註冊</a>
-      </div>
+      </div> -->
     </div>
 
     <div class="d-grid">
@@ -35,3 +40,58 @@
     </div>
   </form>
 </div>
+
+<!-- API -->
+<script>
+  // 判斷是否為本地端部屬
+  const isDev = window.location.hostname === "localhost";
+  const API_BASE_URL = isDev
+    ? "http://localhost:8081/api"
+    : "/api";
+
+  //
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("adminLoginForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const emailInput = document.getElementById("adminEnterEmail");
+      const passwordInput = document.getElementById("adminEnterPassword");
+
+      if (!emailInput || !passwordInput) {
+        console.error("找不到 email 或 password 欄位");
+        return;
+      }
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+
+      try {
+        const res = await fetch(`${API_BASE_URL}/admin/log-in`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const result = await res.json();
+
+        if (res.ok && result.status) {
+          const { token, user } = result.data
+
+          // ✅ 成功登入後儲存 token 和 user 資訊
+          localStorage.setItem("adminToken", token);
+          localStorage.setItem("adminInfo", JSON.stringify(user));
+          alert("登入成功！");
+          window.location.href = "/index";
+        } else {
+          alert(result.message || "登入失敗");
+        }
+      } catch (error) {
+        alert("連線錯誤，請稍後再試");
+        console.error("Login error:", error);
+      }
+    });
+
+  })
+</script>

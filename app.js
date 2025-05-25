@@ -74,6 +74,9 @@ app.get('/discountCodes', (req, res) => {
 });
 
 app.get('/selected', (req, res) => {
+
+  // demo 用
+  // 之後從資料庫抓
   const selectedProducts = [
     {
       cover: '/images/product1.png',
@@ -240,7 +243,10 @@ watcher.on('change', (filePath) => {
 });
 
 // 啟動伺服器
-const PORT = 3000;
+// const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
-  console.log(`後台系統已啟動：http://localhost:${PORT}`);
+  console.log('⚙️ process.env:', process.env);
+  console.log(`後台系統已啟動：http://localhost:${PORT}（環境：${process.env.NODE_ENV || 'local'}）`);
 });

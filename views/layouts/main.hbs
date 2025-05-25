@@ -32,5 +32,29 @@
   <script>
     console.log("🔥 livereload.js loaded");
   </script>
+
+  <!-- 驗證是否有登入，沒有登入則導回 admin/login -->
+  <!-- 放在 index.hbs 等每個需驗證頁面的 <script> 裡 -->
+  <script>
+    // ⛔️ 避免登入頁面也被重導
+    const isLoginPage = window.location.pathname === "/admin/login";
+    const token = localStorage.getItem("adminToken");
+    const adminInfo = JSON.parse(localStorage.getItem("adminInfo") || "{}");
+
+    if (!isLoginPage) {
+
+      if (!token || adminInfo.role !== "admin") {
+        // 尚未登入或不是 admin，導回登入頁
+        window.location.href = "/admin/login";
+      }
+    }
+
+    const nameEl = document.getElementById("adminName");
+    const emailEl = document.getElementById("adminEmail");
+    if (nameEl && emailEl && adminInfo.name && adminInfo.email) {
+      nameEl.textContent = adminInfo.name;
+      emailEl.textContent = adminInfo.email;
+    }
+  </script>
 </body>
 </html>
