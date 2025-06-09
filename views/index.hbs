@@ -97,11 +97,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-  const isDev = window.location.hostname === "localhost";
-  const API_BASE_URL = isDev ? "http://localhost:8081/api" : "/api";
-</script>
-
-<script>
   (async () => {
     // ====== 步驟 1：先從 localStorage 拿到 JWT token ======
     const token = localStorage.getItem('adminToken');
@@ -113,7 +108,7 @@
     // ====== 步驟 2：向後端 /admin/dashboard API 拿資料 ======    
     let json;
     try {
-      const resp = await fetch(`${API_BASE_URL}/admin/dashboard`, {
+      const resp = await fetch(`${window.API_BASE_URL}/admin/dashboard`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
