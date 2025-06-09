@@ -59,7 +59,7 @@
       const password = passwordInput.value.trim();
 
       try {
-        const res = await fetch(`${API_BASE_URL}/admin/log-in`, {
+        const res = await fetch(`${window.API_BASE_URL}/admin/log-in`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
