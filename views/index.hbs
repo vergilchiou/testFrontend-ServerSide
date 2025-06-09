@@ -10,13 +10,13 @@
             <i class="bi bi-currency-dollar"></i>
           </div>
 
-          <strong class="h3 d-block">$15,231</strong>
+          <strong id="monthlyRevenue" class="h3 d-block"></strong>
 
           <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
                                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                                       card's content.
                                     </p> -->
-          <h7 class="text-muted">較上月增長 20.8 %</h7>
+          <h7 id="revenueGrowth" class="text-muted"></h7>
         </div>
       </div>
     </div>
@@ -30,10 +30,10 @@
             <i class="bi bi-book"></i>
           </div>
 
-          <strong class="h3 d-block">2,350</strong>
+          <strong id="bookSales" class="h3 d-block"></strong>
 
 
-          <h7 class="text-muted">較上月增長 20.8 %</h7>
+          <h7 id="bookSalesGrowth" class="text-muted"></h7>
         </div>
       </div>
     </div>
@@ -47,8 +47,8 @@
             <i class="bi bi-cart"></i>
           </div>
 
-          <strong class="h3 d-block">588</strong>
-          <h7 class="text-muted">較上月增長 20.8 %</h7>
+          <strong id="totalOrders" class="h3 d-block"></strong>
+          <h7 id="orderGrowth" class="text-muted"></h7>
         </div>
       </div>
     </div>
@@ -62,8 +62,8 @@
             <i class="bi bi-calendar"></i>
           </div>
 
-          <strong class="h3 d-block">2025 年 4 月</strong>
-          <h7 class="text-muted">較上月增長 20.8 %</h7>
+          <strong id="currentYearMonth" class="h3 d-block"></strong>
+          <!-- <h7 class="text-muted">較上月增長 20.8 %</h7> -->
         </div>
       </div>
     </div>
@@ -83,7 +83,7 @@
 
     <div class="col-4">
       <div class="card">
-        <div class="car-body">
+        <div class="card-body">
           <canvas id="pie-chart" class="img-fluid"></canvas>
         </div>
       </div>
@@ -92,13 +92,59 @@
 
 </div>
 
-
-
-
-<!-- Chart JS code -->
+<!-- 串接 API -->
+<!-- 取得首頁統計資訊、Chart JS code -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
-  (() => {
+  const isDev = window.location.hostname === "localhost";
+  const API_BASE_URL = isDev ? "http://localhost:8081/api" : "/api";
+</script>
+
+<script>
+  (async () => {
+    // ====== 步驟 1：先從 localStorage 拿到 JWT token ======
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      console.error('找不到 token，請先登入拿到 JWT 再呼叫 /admin/dashboard');
+      return;
+    }
+
+    // ====== 步驟 2：向後端 /admin/dashboard API 拿資料 ======    
+    let json;
+    try {
+      const resp = await fetch(`${API_BASE_URL}/admin/dashboard`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (resp.status === 401) {
+        console.error('伺服器回傳 401：Token 無效或已過期');
+        return;
+      }
+
+      json = await resp.json();
+      if (!json.status) {
+        console.error('API 回傳失敗：', json);
+        return;
+      }
+    } catch (err) {
+      console.error('fetch /admin/dashboard 發生錯誤：', err);
+      return;
+    }
+
+    // ====== 步驟 3：解構出 monthlySales 與 salesByCategory ======
+    const { monthlySales, salesByCategory, summary } = json.data;
+
+    console.log(summary);
+    // monthlySales.labels → ['Jan','Feb',…,'Dec']
+    // monthlySales.revenue → [ 數字 x12 ]
+    // salesByCategory → { '科學知識': 120, '動物': 95, … }
+
+    // ====== 步驟 4：定義顏色對照表 ======
     const chartColors = {
       red: 'rgb(255, 99, 132)',
       orange: 'rgb(255, 159, 64)',
@@ -109,94 +155,93 @@
       grey: 'rgb(201, 203, 207)'
     };
 
-    let randomScalingFactor = function () {
-      return Math.round(Math.random() * 2000000);
-    };
-
-    const pieCtx = document.getElementById('pie-chart').getContext('2d');
-    const barCtx = document.getElementById('bar-chart').getContext('2d');
-
-    const config = {
-      type: 'pie',
-      data: {
-        datasets: [{
-          data: [
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-          ],
-          backgroundColor: [
-            chartColors.red,
-            chartColors.orange,
-            chartColors.yellow,
-            chartColors.green,
-            chartColors.blue,
-          ],
-          label: 'Dataset 1'
-        }],
-        labels: [
-          '科學知識',
-          '藝術創作',
-          '生活教育',
-          '奇幻',
-          '動物',
-          '音樂'
-        ]
-      },
-      options: {
-        responsive: true
-      }
-    };
+    // ====== 步驟 5：組裝 Bar Chart 資料 ======
+    const barLabels = monthlySales.labels;      // ['Jan','Feb',…,'Dec']
+    const barData = monthlySales.revenue;     // [數字,數字,…]
+    // 這裡準備 12 種顏色，若分類數量少於 12，就會自動循環
+    const barColors = [
+      chartColors.red, chartColors.orange, chartColors.yellow,
+      chartColors.green, chartColors.blue, chartColors.purple,
+      chartColors.red, chartColors.orange, chartColors.yellow,
+      chartColors.green, chartColors.blue, chartColors.purple
+    ];
 
     const barConfig = {
       type: 'bar',
       data: {
+        labels: barLabels,
         datasets: [{
-          data: [
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-          ],
-          backgroundColor: [
-            chartColors.red,
-            chartColors.orange,
-            chartColors.yellow,
-            chartColors.green,
-            chartColors.blue,
-            chartColors.purple,
-          ],
-          label: 'Dataset 1'
-        }],
-        labels: [
-          '一月',
-          '二月',
-          '三月',
-          '四月',
-          '五月',
-          '六月',
-        ]
+          label: '月營收',
+          data: barData,
+          backgroundColor: barColors
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: value => value.toLocaleString()  // 千分位顯示
+            }
+          }
+        }
+      }
+    };
+
+    // ====== 步驟 6：組裝 Pie Chart 資料 ======
+    const pieLabels = Object.keys(salesByCategory);   // ['科學知識','動物',…]
+    const pieData = Object.values(salesByCategory); // [120,95,…]
+    // 根據分類數量動態挑選顏色（超過時循環使用）
+    const pieColors = [];
+    const colorKeys = Object.keys(chartColors);
+    for (let i = 0; i < pieLabels.length; i++) {
+      pieColors.push(chartColors[colorKeys[i % colorKeys.length]]);
+    }
+
+    const pieConfig = {
+      type: 'pie',
+      data: {
+        labels: pieLabels,
+        datasets: [{
+          label: '各分類書籍銷量佔比',
+          data: pieData,
+          backgroundColor: pieColors
+        }]
       },
       options: {
         responsive: true
       }
     };
 
+    // ====== 步驟 7：繪製兩張圖表 ======
+    const barCtx = document.getElementById('bar-chart').getContext('2d');
+    const pieCtx = document.getElementById('pie-chart').getContext('2d');
 
-    const pieChart = new Chart(pieCtx, config);
-    const barChart = new Chart(barCtx, barConfig);
+    new Chart(barCtx, barConfig);
+    new Chart(pieCtx, pieConfig);
 
+    // Card Informations
+    // 本月收入
+    document.getElementById('monthlyRevenue').textContent =
+      `$${summary.revenue.toLocaleString()}`;
+    document.getElementById('revenueGrowth').textContent =
+      `較上月增長 ${summary.revenueGrowth}`;
+
+    // 圖書銷量
+    document.getElementById('bookSales').textContent =
+      summary.bookSales.toLocaleString();
+    document.getElementById('bookSalesGrowth').textContent =
+      `較上月增長 ${summary.bookSalesGrowth}`;
+
+    // 訂單數量
+    document.getElementById('totalOrders').textContent =
+      summary.totalOrders.toLocaleString();
+    document.getElementById('orderGrowth').textContent =
+      `較上月增長 ${summary.orderGrowth}`;
+
+    // 當前月份
+    document.getElementById('currentYearMonth').textContent =
+      summary.currentYearMonth;
   })();
 </script>
-<!-- Chart End-->
-<!-- <hr> -->
-</div>
-
-
-
-</div>

@@ -22,6 +22,8 @@ const hbs = create({
   defaultLayout: 'main',
   layoutsDir: path.join(__dirname, 'views/layouts'),
   partialsDir: path.join(__dirname, 'views/partials'),
+
+  // helpers: {}
 });
 
 // Livereload 監聽
@@ -65,9 +67,55 @@ app.get('/products', (req, res) => {
   res.render('products');
 });
 
-app.get('/productsClassification', (req, res) => {
-  res.render('productsClassification');
+app.get('/productsTheme', (req, res) => {
+
+  // demo假資料用
+  // const themes = [
+  //   { id: 1, name: '健康生活', bookCount: 20 },
+  //   { id: 2, name: '科學知識', bookCount: 50 },
+  //   { id: 3, name: '藝術啟蒙', bookCount: 30 },
+  //   { id: 4, name: '音樂欣賞', bookCount: 20 },
+  //   { id: 5, name: '勵志成長', bookCount: 35 }
+  // ];
+
+  // demo假資料用
+  // res.render('productsTheme', { themes });
+  res.render('productsTheme');
 });
+
+app.get('/productsTheme-create', (req, res) => {
+  console.log("🟢 成功進入 /productsTheme-create 路由");
+  console.log(req.params);
+
+  res.render('productsTheme-create');
+});
+
+app.get('/productsTheme-edit/:categoryId', (req, res) => {
+  console.log("🟢 成功進入 /productsTheme-edit 路由");
+  console.log(req.params);
+
+  // const themeId = parseInt(req.params.categoryId, 10);
+
+  // 🧪 demo 假資料
+  // const mockThemes = [
+  //   { id: 1, name: '健康生活', description: '與健康生活相關的書籍', status: 'enabled' },
+  //   { id: 2, name: '科學知識', description: '科普與探索書籍', status: 'enabled' },
+  //   { id: 3, name: '藝術啟蒙', description: '給孩子的藝術教育書', status: 'disabled' },
+  // ];
+
+
+  // const theme = mockThemes.find(t => t.id === themeId);
+
+  // if (!theme) {
+  //   return res.status(404).send('找不到這個分類');
+  // }
+
+  // res.render('productsTheme-edit', { theme });
+
+
+  res.render('productsTheme-edit');
+});
+
 
 app.get('/discountCodes', (req, res) => {
   res.render('discountCodes');
@@ -233,6 +281,12 @@ const watcher = chokidar.watch([
   path.join(__dirname, 'javascripts')
 ]);
 
+// ✅ 補上這段 👇
+liveReloadServer.server.once("connection", () => {
+  setTimeout(() => {
+    liveReloadServer.refresh("/");
+  }, 100);
+});
 
 // 
 console.log("✅ LiveReload server 已啟動 (port 35729)");

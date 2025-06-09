@@ -1,0 +1,218 @@
+<!-- 主要內容 -->
+<div class="mt-5">
+  <div class="card border-0">
+    <div class="card-header bg-white bg-transparent d-flex">
+      <div class="input-group me-2">
+        <span class="input-group-text border-0 bg-transparent">
+          <i class="bi bi-search"></i>
+        </span>
+        <input type="search" class="form-control shadow-none" placeholder="搜尋分類名稱">
+      </div>
+
+
+      <div class="btn-sm bg-dark rounded">
+        <a href="/productsTheme-create" class="btn btn-dark text-nowrap">+ 新增分類</a>
+      </div>
+    </div>
+
+    <!-- card-header -->
+    <div class="card-body">
+      <table class="table table-hover align-middle w-75 mx-auto text-center">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">分類名稱</th>
+            <th scope="col">書籍數量</th>
+            <th scope="col">操作</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>
+
+      </table>
+      <!-- 放在 table 之後，body 底部也可以 -->
+      <!-- 操作 Modal -->
+      <!-- 刪除確認 Modal -->
+      <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog mt-2">
+          <div class="modal-content border-0 shadow">
+            <div class="modal-header">
+              <h5 class="modal-title fw-bold" id="deleteConfirmModalLabel">警告！</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
+            </div>
+            <div class="modal-body">
+              此動作無法還原！是否確定要刪除？
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">否</button>
+              <button type="button" class="btn btn-danger" id="confirmDeleteBtn">是</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="mt-2" aria-label="Page navigation example">
+  <ul class="pagination justify-content-center pagination-white">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+
+    <li class="page-item active">
+      <a class="page-link" href="#">1</a>
+    </li>
+
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- 操作 ... -->
+
+<!-- 尚未開發 -->
+<!-- checkbox 選取全部功能 -->
+
+<!-- 串接 API -->
+<!-- 取得 取得分類列表 -->
+<script>
+  const isDev = window.location.hostname === "localhost";
+  const API_BASE_URL = isDev
+    ? "http://localhost:8081/api"
+    : "/api";
+
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    console.log(localStorage);
+    const token = localStorage.getItem("adminToken");
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/admin/categories?page=1&limit=10`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      });
+      console.log(res);
+
+      const result = await res.json();
+      if (!result.status) {
+        return alert("取得分類資料失敗：" + result.message);
+      }
+
+      const categories = result.data.categories;
+      const tbody = document.querySelector("tbody");
+
+      console.log(`資料在這裡：`);
+      categories.forEach((d) => {
+        console.log(d);
+      });
+
+      // 清空現有內容
+      tbody.innerHTML = "";
+
+      // 將資料塞入表格
+      categories.forEach((cat) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+        <td>${cat.id}</td>
+        <td>${cat.name}</td>
+        <td>${cat.booksCount}</td>
+        <td>
+      <div class="dropdown">
+        <button class="btn btn-link text-dark p-0" type="button" id="dropdown-${cat.id}" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-three-dots fs-6"></i>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdown-${cat.id}">
+          <li>
+            <a class="dropdown-item" href="/productsTheme-edit/${cat.id}">編輯</a>
+          </li>
+          <li>
+            <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" data-id="${cat.id}">刪除</a>
+          </li>
+        </ul>
+      </div>
+    </td>
+      `;
+
+        tbody.appendChild(tr);
+      });
+
+    } catch (err) {
+      console.error("🚨 錯誤：", err);
+      alert("無法取得分類資料，請稍後再試");
+    }
+  });
+</script>
+
+
+<!-- DELETE(操作選單) -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const tbody = document.querySelector("tbody");
+    const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+    const deleteConfirmModal = new bootstrap.Modal(document.getElementById("deleteConfirmModal"));
+
+    let deleteTargetId = null;
+    let deleteTargetRow = null;
+
+    // 監聽 tbody 內所有「刪除」連結的點擊事件
+    tbody.addEventListener("click", function (e) {
+      const target = e.target;
+
+      if (target.matches(".dropdown-item.text-danger")) {
+        e.preventDefault();
+        deleteTargetId = target.dataset.id;
+        deleteTargetRow = target.closest("tr");
+
+        // 顯示刪除確認 Modal（這段你也可以只用 data-bs-toggle 處理）
+        deleteConfirmModal.show();
+      }
+    });
+
+    // 確認刪除按鈕點擊後執行刪除
+    confirmDeleteBtn.addEventListener("click", async () => {
+      if (!deleteTargetId || !deleteTargetRow) return;
+
+      const token = localStorage.getItem("adminToken");
+
+      try {
+        const res = await fetch(`${API_BASE_URL}/admin/categories/${deleteTargetId}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        });
+
+        const result = await res.json();
+
+        if (result.status) {
+          alert("刪除成功");
+
+          // 從 DOM 中移除
+          deleteTargetRow.remove();
+
+          // 關閉 Modal
+          deleteConfirmModal.hide();
+        } else {
+          alert("刪除失敗：" + result.message);
+        }
+
+      } catch (error) {
+        console.error("🚨 刪除失敗：", error);
+        alert("伺服器錯誤，請稍後再試");
+      }
+    });
+  })
+
+</script>
