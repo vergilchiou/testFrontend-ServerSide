@@ -97,7 +97,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-  (async () => {
+  document.addEventListener("DOMContentLoaded", async () => {
     // ====== 步驟 1：先從 localStorage 拿到 JWT token ======
     const token = localStorage.getItem('adminToken');
     if (!token) {
@@ -107,6 +107,7 @@
 
     // ====== 步驟 2：向後端 /admin/dashboard API 拿資料 ======    
     let json;
+    console.log(`HERE：${window.API_BASE_URL}`)
     try {
       const resp = await fetch(`${window.API_BASE_URL}/admin/dashboard`, {
         method: 'GET',
@@ -238,5 +239,6 @@
     // 當前月份
     document.getElementById('currentYearMonth').textContent =
       summary.currentYearMonth;
-  })();
+  })
+  // ()();
 </script>
