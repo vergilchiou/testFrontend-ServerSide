@@ -67,6 +67,19 @@ app.get('/products', (req, res) => {
   res.render('products');
 });
 
+// 
+app.get('/productsAdd', (req, res) => {
+  res.render('productsAdd', {
+    statuses: [
+      { value: 'up', label: '已上架' },
+      { value: 'down', label: '已下架' }
+    ],
+    ageRanges: [ /* 從資料庫撈 */],
+    themes: [ /* 從資料庫撈 */],
+    tags: [ /* 從資料庫撈 */]
+  });
+});
+
 app.get('/productsTheme', (req, res) => {
 
   // demo假資料用

@@ -39,15 +39,6 @@
 </div>
 
 <!-- 串接 API -->
-
-<!--  環境判斷 -->
-<script>
-  const isDev = window.location.hostname === "localhost";
-  const API_BASE_URL = isDev
-    ? "http://localhost:8081/api"
-    : "/api";
-</script>
-
 <!-- 取得類別詳細資訊 -->
 <script>
   document.addEventListener("DOMContentLoaded", async () => {
@@ -56,7 +47,7 @@
     const token = localStorage.getItem("adminToken");
 
     try {
-      const res = await fetch(`${API_BASE_URL}/admin/categories/${categoryId}`, {
+      const res = await fetch(`${window.API_BASE_URL}/admin/categories/${categoryId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",

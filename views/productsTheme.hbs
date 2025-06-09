@@ -85,18 +85,12 @@
 <!-- 串接 API -->
 <!-- 取得 取得分類列表 -->
 <script>
-  const isDev = window.location.hostname === "localhost";
-  const API_BASE_URL = isDev
-    ? "http://localhost:8081/api"
-    : "/api";
-
-
   document.addEventListener("DOMContentLoaded", async () => {
     console.log(localStorage);
     const token = localStorage.getItem("adminToken");
 
     try {
-      const res = await fetch(`${API_BASE_URL}/admin/categories?page=1&limit=10`, {
+      const res = await fetch(`${window.API_BASE_URL}/admin/categories?page=1&limit=10`, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",

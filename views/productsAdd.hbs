@@ -1,0 +1,133 @@
+<div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <!-- 標題列 -->
+    <div class="modal-header">
+      <h5 class="modal-title">新增商品</h5>
+      <a href="/admin/products" class="btn-close"></a>
+    </div>
+
+    <!-- 主體 -->
+    <div class="modal-body">
+      <!-- 分頁標籤 -->
+      <ul class="nav nav-tabs" id="productTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button"
+            role="tab">基本資料</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="images-tab" data-bs-toggle="tab" data-bs-target="#images" type="button"
+            role="tab">商品圖片</button>
+        </li>
+      </ul>
+
+      <div class="tab-content pt-3" id="productTabContent">
+        <!-- 基本資料 分頁 -->
+        <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+          <form id="addProductForm" action="/api/admin/products" method="POST" enctype="multipart/form-data">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="title" class="form-label">書籍標題 *</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+              </div>
+              <div class="col-md-6">
+                <label for="author" class="form-label">作者</label>
+                <input type="text" class="form-control" id="author" name="author">
+              </div>
+              <div class="col-md-6">
+                <label for="illustrator" class="form-label">繪者</label>
+                <input type="text" class="form-control" id="illustrator" name="illustrator">
+              </div>
+              <div class="col-md-6">
+                <label for="publisher" class="form-label">出版社</label>
+                <input type="text" class="form-control" id="publisher" name="publisher">
+              </div>
+              <div class="col-md-6">
+                <label for="isbn" class="form-label">ISBN號碼</label>
+                <input type="text" class="form-control" id="isbn" name="isbn">
+              </div>
+              <div class="col-12">
+                <label for="description" class="form-label">商品描述</label>
+                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+              </div>
+              <div class="col-md-6">
+                <label for="status" class="form-label">商品狀態</label>
+                <select class="form-select" id="status" name="status">
+                  {{#each statuses}}
+                  <option value="{{this.value}}">{{this.label}}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="contentIntro" class="form-label">書籍內容介紹</label>
+                <textarea class="form-control" id="contentIntro" name="contentIntro" rows="5"></textarea>
+              </div>
+              <hr class="my-4">
+              <div class="col-md-4">
+                <label for="price" class="form-label">售價 *</label>
+                <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+              </div>
+              <div class="col-md-4">
+                <label for="discountPrice" class="form-label">折扣後價格</label>
+                <input type="number" step="0.01" class="form-control" id="discountPrice" name="discountPrice">
+              </div>
+              <div class="col-md-4">
+                <label for="stock" class="form-label">庫存數量 *</label>
+                <input type="number" class="form-control" id="stock" name="stock" required>
+              </div>
+              <div class="col-md-3">
+                <label for="pageCount" class="form-label">頁數</label>
+                <input type="number" class="form-control" id="pageCount" name="pageCount">
+              </div>
+              <div class="col-md-3">
+                <label for="publishDate" class="form-label">出版日期</label>
+                <input type="date" class="form-control" id="publishDate" name="publishDate">
+              </div>
+              <div class="col-md-3">
+                <label for="ageRange" class="form-label">年齡層分類 *</label>
+                <select class="form-select" id="ageRange" name="ageRange" required>
+                  {{#each ageRanges}}
+                  <option value="{{this.id}}">{{this.name}}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label for="theme" class="form-label">商品主題 *</label>
+                <select class="form-select" id="theme" name="theme" required>
+                  {{#each themes}}
+                  <option value="{{this.id}}">{{this.name}}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label">商品標籤</label>
+                <div class="form-check form-check-inline">
+                  {{#each tags}}
+                  <input class="form-check-input" type="checkbox" id="tag-{{this.id}}" name="tags" value="{{this.id}}">
+                  <label class="form-check-label me-3" for="tag-{{this.id}}">{{this.name}}</label>
+                  {{/each}}
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- 商品圖片 分頁 -->
+        <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+          <form id="uploadImagesForm" action="/api/admin/products/images" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="productImages" class="form-label">上傳商品圖片</label>
+              <input class="form-control" type="file" id="productImages" name="images" multiple>
+              <div class="form-text">建議尺寸：800x800px，最多 5 張。</div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- 按鈕列 -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" onclick="location.href='/admin/products'">取消</button>
+      <button type="submit" form="addProductForm" class="btn btn-primary">確定新增</button>
+    </div>
+  </div>
+</div>
