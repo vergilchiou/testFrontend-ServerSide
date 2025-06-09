@@ -7,5 +7,5 @@
 export function getApiBaseUrl() {
   return window.location.hostname === 'localhost'
     ? 'http://localhost:8081/api'
-    : 'https://https://little-chapter-backend.onrender.com/.onrender.com/api';
+    : 'https://little-chapter-backend.onrender.com/api';
 }
