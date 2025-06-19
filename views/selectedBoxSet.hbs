@@ -1,0 +1,94 @@
+<!-- 主要內容 -->
+<div class="container py-4">
+  <h4 class="fw-bold mb-4">套裝書籍管理</h4>
+
+  <div class="d-flex mb-3 justify-content-end">
+    <!-- <div class="btn-group me-2">
+      <button type="button" class="btn btn-dark">精選商品</button>
+      <button type="button" class="btn btn-outline-dark">精選分類管理</button>
+    </div>
+    <div class="flex-grow-1">
+      <input type="search" class="form-control" placeholder="搜尋精選商品...">
+    </div> -->
+    <select class="form-select w-auto ms-2">
+      <option selected>所有狀態</option>
+      <option value="1">啟用</option>
+      <option value="0">停用</option>
+    </select>
+    <!-- <select class="form-select w-auto ms-2">
+      <option selected>所有分類</option>
+      <option value="hot">熱門商品</option>
+      <option value="new">最新商品</option>
+    </select> -->
+    <button class="btn btn-dark ms-2">
+      <i class="bi bi-plus-circle me-1"></i> 添加精選商品
+    </button>
+  </div>
+
+  <table class="table align-middle">
+    <thead>
+      <tr>
+        <th scope="col"><input type="checkbox"></th>
+        <th scope="col">封面</th>
+        <th scope="col">商品</th>
+        <th scope="col">分類</th>
+        <th scope="col">位置</th>
+        <th scope="col">狀態</th>
+        <th scope="col">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each selectedProducts}}
+      <tr>
+        <td><input type="checkbox"></td>
+        <td><img src="{{this.cover}}" alt="封面" style="width: 32px"></td>
+        <td>{{this.name}}</td>
+        <td>
+          <span class="badge bg-{{this.categoryBadgeClass}}">{{this.category}}</span>
+        </td>
+        <td>{{this.position}}</td>
+        <td>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="statusSwitch{{@index}}" {{#if
+              this.enabled}}checked{{/if}}>
+            <label class="form-check-label" for="statusSwitch{{@index}}">{{#if this.enabled}}啟用{{else}}停用{{/if}}</label>
+          </div>
+        </td>
+        <td>
+          <div class="dropdown">
+            <button class="btn p-0 border-0 bg-transparent" type="button" data-bs-toggle="dropdown">
+              <i class="bi bi-three-dots"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">編輯</a></li>
+              <li><a class="dropdown-item text-danger" href="#">刪除</a></li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <!-- 分頁 -->
+  <nav class="mt-2" aria-label="Page navigation example">
+    <ul class="pagination justify-content-center pagination-white">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<!-- JavaScript Bundle with Popper -->
+<script src="./javascripts/discountCodeSwitchs.js"></script>

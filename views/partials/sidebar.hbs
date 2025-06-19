@@ -11,79 +11,99 @@
   <div class="overflow-auto d-flex flex-column">
     <div class="">
       <a href="/index" class="sidebar-link text-white">
+
         <div class="px-4">
+          <i class="bi bi-bar-chart me-2 text-info"></i>
           儀表板
         </div>
       </a>
 
       <a href="/users" class="sidebar-link text-white">
         <div class="px-4">
+          <i class="bi bi-person-fill me-2 text-purple"></i>
           用戶管理
         </div>
       </a>
 
       <a href="/products" class="sidebar-link text-white">
         <div class="px-4">
+          <i class="bi bi-bag-fill me-2 text-success"></i>
           商品管理
         </div>
       </a>
 
       <a href="/productsTheme" class="sidebar-link text-white">
         <div class="px-4">
+          <i class="bi bi-box2 me-2 text-light"></i>
           商品分類管理
         </div>
       </a>
 
       <a href="/orders" class="sidebar-link text-white">
         <div class="px-4">
+          <i class="bi bi-cart-fill me-2 text-warning"></i>
           訂單管理
         </div>
       </a>
 
       <a href="/discountCodes" class="sidebar-link text-white">
         <div class="px-4">
+          <i class="bi bi-tag-fill me-2 text-success"></i>
           折扣碼
         </div>
       </a>
 
-      <a href="/selected" class="sidebar-link text-white">
-        <div class="px-4">
-          精選產品
+
+      <!-- 有子選單的結構 -->
+      <div>
+        <a href="#selected-order" class="sidebar-link text-white" data-bs-toggle="">
+          <div class="d-flex justify-content-between px-4">
+            <p>
+              <i class="bi bi-star-fill me-2 text-warning"></i>
+              推薦專區管理
+            </p>
+            <i class="bi bi-caret-down border-0 p-0 m-0" data-bs-toggle="collapse" data-bs-target="#selected-order"></i>
+          </div>
+        </a>
+
+        <div class="collapse text-white" id="selected-order">
+          <a href="/selectedHot" class="sidebar-link">
+            <div class="ps-5 text-white">
+              <i class="bi bi-star-fill me-2 text-warning"></i>
+              熱門書籍
+            </div>
+          </a>
+          <a href="/selectedNews" class="sidebar-link">
+            <div class="ps-5 text-white">
+              <i class="bi bi-star-fill me-2 text-warning"></i>
+              本月亮點新書
+            </div>
+          </a>
+          <a href="/selectedBoxSet" class="sidebar-link">
+            <div class="ps-5 text-white">
+              <i class="bi bi-award-fill"></i>
+              套裝推薦
+            </div>
+          </a>
         </div>
-      </a>
+      </div>
 
       <a href="/notifications" class="sidebar-link text-white">
         <div class="px-4">
+          <i class="bi bi-bell-fill me-2 text-danger"></i>
           通知
         </div>
       </a>
 
       <a href="/message" class="sidebar-link text-white">
         <div class="px-4">
+          <i class="bi bi-chat-left-dots-fill me-2 text-primary"></i>
           訊息
         </div>
       </a>
     </div>
 
-    <!-- 有子選單的結構 -->
-    <!-- <div>
-              <a href="#menu-order" class="sidebar-link" data-bs-toggle="">
-                <div class="d-flex justify-content-between px-4">
-                  <p>
-                    用戶管理
-                  </p>
-                  <i class="bi bi-caret-down border-0 p-0 m-0" data-bs-toggle="collapse" data-bs-target="#menu-order"></i>
-                </div>
-              </a>
-    
-              <div class="collapse" id="menu-order">
-                <a href="#" class="sidebar-link">
-                  <div class="ps-5">
-                    子項目1
-                  </div>
-                </a>
-              </div>
-            </div> -->
+
 
 
     <div class="sidebar-link px-4 text-white">

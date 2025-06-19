@@ -8,14 +8,14 @@
       <!-- 通知區塊 -->
       <div class="notification d-flex me-3">
         <div class="d-flex border rounded-pill bg-warning me-2 p-1 note-pill">
-          <span><i class="bi bi-currency-dollar"></i></span>
+          <!-- <span><i class="bi bi-currency-dollar"></i></span> -->
           <span>待發貨訂單：</span>
-          <span class="badge rounded-pill bg-light text-dark">42</span>
+          <span class="badge rounded-pill bg-light text-dark" id="pendingShipments"></span>
         </div>
         <div class="d-flex border rounded-pill bg-danger me-2 p-1 note-pill">
-          <span><i class="bi bi-currency-dollar"></i></span>
+          <!-- <span><i class="bi bi-currency-dollar"></i></span> -->
           <span>待處理退貨：</span>
-          <span class="badge rounded-pill bg-light text-dark">18</span>
+          <span class="badge rounded-pill bg-light text-dark" id="pendingReturns"></span>
         </div>
         <!-- <div class="d-flex border rounded-pill bg-info bg-gradient me-2 p-1 note-pill">
           <span><i class="bi bi-currency-dollar"></i></span>
@@ -55,4 +55,38 @@
     localStorage.removeItem("adminInfo");
     window.location.href = "/admin/login";
   }
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    // 先拿 token
+    const token = localStorage.getItem('adminToken');
+    if (!token) return;
+
+    try {
+      const resp = await fetch(`${window.API_BASE_URL}/admin/task`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      });
+      if (!resp.ok) {
+        console.error('fetch /admin/task 錯誤', resp.status);
+        return;
+      }
+      const json = await resp.json();
+      if (!json.status) {
+        console.error('API 回傳失敗：', json.message);
+        return;
+      }
+
+      const pending = json.data.pendingTasks;
+      // 塞值到 badge
+      document.getElementById('pendingShipments').textContent = pending.pendingShipments;
+      document.getElementById('pendingReturns').textContent = pending.pendingReturns;
+    } catch (err) {
+      console.error('取得待辦事項失敗', err);
+    }
+  });
 </script>

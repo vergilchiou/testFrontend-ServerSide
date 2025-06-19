@@ -1,0 +1,315 @@
+<!-- 訂單資訊區塊 -->
+<ul class="nav nav-tabs mt-4" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabOrderInfo" type="button"
+      role="tab">訂單資訊</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabShipping" type="button" role="tab">物流資訊</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabPayment" type="button" role="tab">付款資訊</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabProduct" type="button" role="tab">商品詳情</button>
+  </li>
+</ul>
+
+<div class="tab-content py-3">
+  <div class="tab-pane fade show active m-3" id="tabOrderInfo" role="tabpanel">
+    <p><strong>訂單編號：</strong><span id="infoOrderNumber"></span></p>
+    <p><strong>訂單狀態：</strong><span id="infoOrderStatus"></span></p>
+    <p><strong>建立時間：</strong><span id="infoCreatedAt"></span></p>
+    <p><strong>用戶姓名：</strong><span id="infoUserName"></span></p>
+    <p><strong>用戶電話：</strong><span id="infoUserPhone"></span></p>
+    <p><strong>用戶 Email：</strong><span id="infoUserEmail"></span></p>
+    <p><strong>訂單金額：</strong><span id="infoTotalAmount"></span></p>
+    <p><strong>運費：</strong><span id="infoShippingFee"></span></p>
+    <p><strong>折扣金額：</strong><span id="infoDiscountAmount"></span></p>
+    <p><strong>最終金額：</strong><span id="infoFinalAmount"></span></p>
+    <p><strong>訂單備註：</strong><span id="infoNote"></span></p>
+    <p><strong>狀態備註：</strong><span id="infoStatusNote"></span></p>
+  </div>
+  <div class="tab-pane fade m-3" id="tabShipping" role="tabpanel">
+    <p><strong>配送方式：</strong><span id="infoShippingMethod"></span></p>
+    <p><strong>運送狀態：</strong><span id="infoShippingStatus"></span></p>
+    <p><strong>收件人姓名：</strong><span id="infoRecipientName"></span></p>
+    <p><strong>收件人電話：</strong><span id="infoRecipientPhone"></span></p>
+    <p><strong>收件人地址：</strong><span id="infoShippingAddress"></span></p>
+    <p><strong>取消時間：</strong><span id="infoCancelledAt"></span></p>
+    <p><strong>完成時間：</strong><span id="infoCompletedAt"></span></p>
+    <p><strong>退貨時間：</strong><span id="infoReturnAt"></span></p>
+  </div>
+  <div class="tab-pane fade m-3" id="tabPayment" role="tabpanel">
+    <p><strong>付款方式：</strong><span id="infoPaymentMethod"></span></p>
+    <p><strong>付款狀態：</strong><span id="infoPaymentStatus"></span></p>
+    <p><strong>交易編號：</strong><span id="infoTransactionNumber"></span></p>
+    <p><strong>付款時間：</strong><span id="infoPaidAt"></span></p>
+  </div>
+  <div class="tab-pane fade" id="tabProduct" role="tabpanel">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>商品名稱</th>
+          <th>數量</th>
+          <th>單價</th>
+          <th>小計</th>
+        </tr>
+      </thead>
+      <tbody id="orderItemsTable"></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="text-end">商品小計：</td>
+          <td id="orderItemTotal"></td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-end">運費：</td>
+          <td id="orderShippingFee"></td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-end">折扣金額：</td>
+          <td id="orderDiscountAmount"></td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-end fw-bold">訂單總計：</td>
+          <td id="orderSummaryTotal" class="fw-bold"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+<!-- 出貨、退貨操作按鈕 -->
+<div class="d-flex flex-wrap flex-row-reverse gap-2 m-3 mt-4" id="actionButtonGroup">
+  <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#modalViewDetails">查看詳細</button>
+  <button class="btn btn-outline-dark" id="printOrder">列印訂單</button>
+  <a class="btn btn-dark" id="editOrderLink">編輯訂單</a>
+  <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modalShip" id="btnShip">確認出貨</button>
+  <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modalApproveReturn"
+    id="btnApproveReturn">確認退貨</button>
+  <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalRejectReturn"
+    id="btnRejectReturn">拒絕退貨</button>
+  <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modalApplyRefund"
+    id="btnApplyRefund">申請退款</button>
+</div>
+
+<!-- 出貨、退貨操作按鈕的 Modal -->
+<!-- 確認出貨 Modal -->
+<div class="modal fade" id="modalShip" tabindex="-1" aria-labelledby="modalShipLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">確認出貨</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>訂單編號：</strong><span id="modalOrderNumber"></span></p>
+        <div class="mb-3">
+          <label for="modalStatusNote" class="form-label">狀態備註</label>
+          <textarea class="form-control" id="modalStatusNote" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-dark" id="confirmShipBtn">確認出貨</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 同意退貨 Modal -->
+<div class="modal fade" id="modalApproveReturn" tabindex="-1" aria-labelledby="modalApproveReturnLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">同意退貨</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>訂單編號：</strong><span id="modalApproveOrderNumber"></span></p>
+        <p>您確定要同意退貨嗎？</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-dark" id="confirmApproveReturnBtn">同意</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 拒絕退貨 Modal -->
+<div class="modal fade" id="modalRejectReturn" tabindex="-1" aria-labelledby="modalRejectReturnLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger">拒絕退貨</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>訂單編號：</strong><span id="modalRejectOrderNumber"></span></p>
+        <div class="mb-3">
+          <label for="modalRejectReason" class="form-label text-danger">拒絕原因 *</label>
+          <textarea class="form-control" id="modalRejectReason" rows="3" required></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-danger" id="confirmRejectReturnBtn">拒絕</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const token = localStorage.getItem("adminToken");
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderNumber = urlParams.get("orderNumber");
+    if (!orderNumber || !token) return;
+
+    const res = await fetch(`${window.API_BASE_URL}/admin/orders/${orderNumber}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await res.json();
+    if (!result.status) return;
+    const data = result.data;
+
+    // 修改編輯按鈕連結
+    document.getElementById("editOrderLink").href = `/ordersEdit?orderNumber=${orderNumber}`;
+
+
+    // 訂單資訊渲染
+    document.getElementById("infoOrderNumber").textContent = data.orderNumber;
+    document.getElementById("infoOrderStatus").textContent = data.orderStatus;
+    document.getElementById("infoCreatedAt").textContent = new Date(data.createdAt).toLocaleString();
+    document.getElementById("infoUserName").textContent = data.user?.name || "—";
+    document.getElementById("infoUserPhone").textContent = data.user?.phone || "—";
+    document.getElementById("infoUserEmail").textContent = data.user?.email || "—";
+    document.getElementById("infoTotalAmount").textContent = `$${data.totalAmount}`;
+    document.getElementById("infoShippingFee").textContent = `$${data.shippingFee}`;
+    document.getElementById("infoDiscountAmount").textContent = `$${data.discountAmount}`;
+    document.getElementById("infoFinalAmount").textContent = `$${data.finalAmount}`;
+    document.getElementById("infoNote").textContent = data.note || "—";
+    document.getElementById("infoStatusNote").textContent = data.statusNote || "—";
+
+
+    // 物流資訊渲染
+    document.getElementById("infoShippingMethod").textContent = data.shippingInfo?.shippingMethod || "—";
+    document.getElementById("infoShippingStatus").textContent = data.shippingStatus;
+    document.getElementById("infoRecipientName").textContent = data.shippingInfo?.recipientName || "—";
+    document.getElementById("infoRecipientPhone").textContent = data.shippingInfo?.recipientPhone || "—";
+    document.getElementById("infoShippingAddress").textContent = data.shippingInfo?.shippingAddress || "—";
+    document.getElementById("infoCancelledAt").textContent = data.cancelledAt ? new Date(data.cancelledAt).toLocaleString() : "—";
+    document.getElementById("infoCompletedAt").textContent = data.completedAt ? new Date(data.completedAt).toLocaleString() : "—";
+    document.getElementById("infoReturnAt").textContent = data.returnAt ? new Date(data.returnAt).toLocaleString() : "—";
+
+
+    // 付款資訊渲染
+    document.getElementById("infoPaymentMethod").textContent = data.paymentMethod;
+    document.getElementById("infoPaymentStatus").textContent = data.paymentStatus;
+    document.getElementById("infoTransactionNumber").textContent = data.transactionNumber || "—";
+    document.getElementById("infoPaidAt").textContent = data.paidAt ? new Date(data.paidAt).toLocaleString() : "—";
+
+
+    // 商品詳情渲染
+    const tbody = document.getElementById("orderItemsTable");
+    let itemTotal = 0;
+    data.items.forEach(item => {
+      // console.log("🅸 Item:", item);
+      itemTotal += item.subtotal;
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+    <td class="text-start">${item.productTitle}</td>
+    <td>${item.quantity}</td>
+    <td>$${item.price}</td>
+    <td>$${item.subtotal}</td>
+  `;
+      tbody.appendChild(tr);
+    });
+
+    const shippingFee = data.shippingFee || 0;
+    const discountAmount = data.discountAmount || 0;
+    const grandTotal = itemTotal + shippingFee - discountAmount;
+
+    // 渲染小計、運費與總計
+    document.getElementById("orderItemTotal").textContent = `$${itemTotal}`;
+    document.getElementById("orderShippingFee").textContent = `$${shippingFee}`;
+    document.getElementById("orderDiscountAmount").textContent = `$${discountAmount}`;
+    document.getElementById("orderSummaryTotal").textContent = `$${grandTotal}`;
+
+    // 控制按鈕啟用/禁用
+    const btnShip = document.getElementById("btnShip");
+    const btnApproveReturn = document.getElementById("btnApproveReturn");
+    const btnRejectReturn = document.getElementById("btnRejectReturn");
+    const btnApplyRefund = document.getElementById("btnApplyRefund");
+
+    btnShip.disabled = !(data.orderStatus === "pending" && data.paymentStatus === "paid" && data.shippingStatus === "notReceived");
+    btnApproveReturn.disabled = !(data.orderStatus === "returnRequested" && data.paymentStatus === "paid" && data.shippingStatus === "delivered");
+    btnRejectReturn.disabled = btnApproveReturn.disabled;
+    btnApplyRefund.disabled = !(data.orderStatus === "returnAccepted");
+
+    async function updateOrderStatus(type, extraBody = {}) {
+      try {
+        const body = {
+          orderNumber: data.orderNumber,
+          // statusNote: data.statusNote || "",
+          statusNote: document.getElementById("modalStatusNote")?.value || "",
+          ...extraBody
+        };
+        const res = await fetch(`${window.API_BASE_URL}/admin/orders/action?type=${type}`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(body)
+        });
+        const result = await res.json();
+        if (result.status) {
+          alert(result.message);
+          location.reload();
+        } else {
+          alert("❌ 操作失敗：" + result.message);
+        }
+      } catch (error) {
+        alert("❌ 發生錯誤，請稍後再試");
+        console.error("更新訂單狀態錯誤：", error);
+      }
+    }
+
+    // 預先填入 modal 的資料
+    btnShip?.addEventListener("click", () => {
+      document.getElementById("modalOrderNumber").textContent = data.orderNumber;
+      document.getElementById("modalStatusNote").value = data.statusNote || "";
+    });
+
+    btnApproveReturn?.addEventListener("click", () => {
+      document.getElementById("modalApproveOrderNumber").textContent = data.orderNumber;
+    });
+
+    btnRejectReturn?.addEventListener("click", () => {
+      document.getElementById("modalRejectOrderNumber").textContent = data.orderNumber;
+      document.getElementById("modalRejectReason").value = "";
+    });
+
+    // 才觸發 Modal 裡「確認出貨」按鈕 API
+    document.getElementById("confirmShipBtn")?.addEventListener("click", () => {
+      updateOrderStatus("ship");
+    });
+
+    document.getElementById("confirmApproveReturnBtn")?.addEventListener("click", () => {
+      updateOrderStatus("approveReturn");
+    });
+
+    document.getElementById("confirmRejectReturnBtn")?.addEventListener("click", () => {
+      const reason = document.getElementById("modalRejectReason").value;
+      if (!reason) return alert("請輸入拒絕原因");
+      updateOrderStatus("rejectReturn", { rejectReason: reason });
+    });
+  });
+</script>

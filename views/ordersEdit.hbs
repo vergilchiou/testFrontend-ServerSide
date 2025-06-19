@@ -1,0 +1,260 @@
+<!-- orderEdit.hbs -->
+<div class="container mt-4">
+  <div class="card shadow">
+    <div class="card-header bg-light d-flex justify-content-between">
+      <h5 class="mb-0">編輯訂單</h5>
+      <a href="/orders" class="btn-close"></a>
+    </div>
+
+    <div class="modal-body p-2">
+      <ul class="nav nav-tabs mb-3" id="orderEditTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabOrderInfo" type="button"
+            role="tab">訂單資訊</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabRecipientInfo" type="button"
+            role="tab">收件資訊</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabOrderDetails" type="button"
+            role="tab">訂單明細</button>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- 訂單資訊 -->
+        <div class="tab-pane fade show active" id="tabOrderInfo" role="tabpanel">
+          <form id="orderInfoForm">
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label class="form-label">訂單編號</label>
+                <input type="text" class="form-control" id="orderNumber" disabled>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label">訂單狀態</label>
+                <select class="form-select" id="orderStatus" disabled></select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">運送狀態</label>
+                <select class="form-select" id="shippingStatus" disabled></select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label class="form-label">付款方式</label>
+                <input type="text" class="form-control" id="paymentMethod" disabled>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">付款狀態</label>
+                <select class="form-select" id="paymentStatus" disabled></select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">交易編號</label>
+                <input type="text" class="form-control" id="transactionNumber" disabled>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-3">
+                <label class="form-label">訂單總金額</label>
+                <input type="number" class="form-control" id="totalAmount">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">運費</label>
+                <input type="number" class="form-control" id="shippingFee">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">折扣金額</label>
+                <input type="number" class="form-control" id="discountAmount">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">最終金額</label>
+                <input type="number" class="form-control" id="finalAmount">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">訂單備註</label>
+              <textarea class="form-control" id="note" rows="2"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">狀態備註</label>
+              <textarea class="form-control" id="statusNote" rows="2"></textarea>
+            </div>
+          </form>
+        </div>
+
+        <!-- 收件資訊 -->
+        <div class="tab-pane fade" id="tabRecipientInfo" role="tabpanel">
+          <form id="recipientForm">
+            <div class="mb-3">
+              <label class="form-label">收件人姓名</label>
+              <input type="text" class="form-control" id="recipientName">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">收件人電話</label>
+              <input type="text" class="form-control" id="recipientPhone">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">運送方式</label>
+              <input type="text" class="form-control" id="shippingMethod" disabled>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">運送地址</label>
+              <textarea class="form-control" id="shippingAddress" rows="2"></textarea>
+            </div>
+          </form>
+        </div>
+
+        <!-- 訂單明細 -->
+        <div class="tab-pane fade" id="tabOrderDetails" role="tabpanel">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>商品名稱</th>
+                <th>數量</th>
+                <th>單價</th>
+                <th>小計</th>
+              </tr>
+            </thead>
+            <tbody id="orderItemsTable"></tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" class="text-end">商品小計：</td>
+                <td id="orderItemTotal"></td>
+              </tr>
+              <tr>
+                <td colspan="3" class="text-end">運費：</td>
+                <td id="orderShippingFee"></td>
+              </tr>
+              <tr>
+                <td colspan="3" class="text-end">折扣金額：</td>
+                <td id="orderDiscountAmount"></td>
+              </tr>
+              <tr>
+                <td colspan="3" class="text-end fw-bold">訂單總計：</td>
+                <td id="orderSummaryTotal" class="fw-bold"></td>
+              </tr>
+            </tfoot>
+          </table>
+          <div class="ms-2">
+
+            <p>用戶名稱：<span class="fw-bold" id="userName"></span></p>
+            <p>Email：<span class="fw-bold" id="userEmail"></span></p>
+            <p>電話：<span class="fw-bold" id="userPhone"></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer mb-2">
+      <a type="button" href="/orders" class="btn btn-secondary">取消</a>
+      <button type="button" class="btn btn-primary ms-2" id="saveOrderChanges">保存更改</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const token = localStorage.getItem("adminToken");
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderNumber = urlParams.get("orderNumber");
+
+    // 可選狀態選項（根據你的資料庫邏輯）
+    const orderStatusOptions = ["待出貨", "已出貨", "已完成", "已取消", "已申請退貨", "已申請退貨", "已同意退貨", "已拒絕退貨"];
+    const paymentStatusOptions = ["已付款", "已退款", "已取消授權"];
+    const shippingStatusOptions = ["尚未收貨", "處理中", "運送中", "已到貨", "已退貨"];
+
+    // 將下拉選單選項渲染到 DOM
+    function populateSelect(selectId, optionsArray, selectedValue) {
+      const select = document.getElementById(selectId);
+      select.innerHTML = "";
+      optionsArray.forEach(opt => {
+        const option = document.createElement("option");
+        option.value = opt;
+        option.textContent = opt;
+        if (opt === selectedValue) option.selected = true;
+        select.appendChild(option);
+      });
+    }
+
+    if (!orderNumber || !token) {
+      alert("無效的訂單編號或未登入");
+      return;
+    }
+
+    const res = await fetch(`${window.API_BASE_URL}/admin/orders/${orderNumber}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await res.json();
+    if (!result.status) {
+      alert("無法載入訂單資料：" + result.message);
+      return;
+    }
+
+    const data = result.data;
+
+    populateSelect("orderStatus", orderStatusOptions, data.orderStatus);
+    populateSelect("paymentStatus", paymentStatusOptions, data.paymentStatus);
+    populateSelect("shippingStatus", shippingStatusOptions, data.shippingStatus);
+
+    document.getElementById("orderNumber").value = data.orderNumber;
+    document.getElementById("paymentMethod").value = data.paymentMethod || "—";
+    document.getElementById("transactionNumber").value = data.transactionNumber || "—";
+    document.getElementById("totalAmount").value = data.totalAmount;
+    document.getElementById("shippingFee").value = data.shippingFee;
+    document.getElementById("discountAmount").value = data.discountAmount;
+    document.getElementById("finalAmount").value = data.finalAmount;
+    document.getElementById("note").value = data.note || "";
+    document.getElementById("statusNote").value = data.statusNote || "";
+
+    document.getElementById("recipientName").value = data.shippingInfo.recipientName;
+    document.getElementById("recipientPhone").value = data.shippingInfo.recipientPhone;
+    document.getElementById("shippingAddress").value = data.shippingInfo.shippingAddress;
+    document.getElementById("shippingMethod").value = data.shippingInfo.shippingMethod || "—";
+    // document.getElementById("storeName").value = data.shippingInfo.storeName || "—";
+    // document.getElementById("storeCode").value = data.shippingInfo.storeCode || "—";
+    // document.getElementById("trackingNumber").value = data.shippingInfo.trackingNumber || "—";    
+
+    const tbody = document.getElementById("orderItemsTable");
+    // 
+    if (!tbody) {
+      console.error("❗ 錯誤：找不到 id 為 orderItemsTable 的 <tbody>");
+      return;
+    }
+
+
+    tbody.innerHTML = "";
+    let itemTotal = 0;
+    data.items.forEach(item => {
+      // console.log("🅸 Item:", item);
+      itemTotal += item.subtotal;
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+    <td class="text-start">${item.productTitle}</td>
+    <td>${item.quantity}</td>
+    <td>$${item.price}</td>
+    <td>$${item.subtotal}</td>
+  `;
+      tbody.appendChild(tr);
+    });
+
+    const shippingFee = data.shippingFee || 0;
+    const discountAmount = data.discountAmount || 0;
+    const grandTotal = itemTotal + shippingFee - discountAmount;
+
+    // 渲染小計、運費與總計
+    document.getElementById("orderItemTotal").textContent = `$${itemTotal}`;
+    document.getElementById("orderShippingFee").textContent = `$${shippingFee}`;
+    document.getElementById("orderDiscountAmount").textContent = `$${discountAmount}`;
+    document.getElementById("orderSummaryTotal").textContent = `$${grandTotal}`;
+
+
+    // ===== 顯示用戶資訊 =====
+    document.getElementById("userName").innerText = data.user.name;
+    document.getElementById("userEmail").innerText = data.user.email;
+    document.getElementById("userPhone").innerText = data.user.phone;
+  });
+</script>

@@ -50,3 +50,7 @@ livereload-setup.md
 
 # Git 忽略的原始檔案
 *.orig
+
+# 測試檔案
+test/
+public/ckeditor5-45.1.0

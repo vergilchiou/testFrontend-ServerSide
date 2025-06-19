@@ -15,7 +15,7 @@
 
 
       <div class="btn-sm bg-dark rounded">
-        <button type="button" class="btn btn-dark text-nowrap">+ 新增訂單</button>
+        <button type="button" class="btn btn-dark text-nowrap" disabled>+ 新增訂單</button>
       </div>
     </div>
 
@@ -30,6 +30,8 @@
         <ul class="dropdown-menu" aria-labelledby="filterOrderStatus">
           <li><a class="dropdown-item" href="#">訂單成立</a></li>
           <li><a class="dropdown-item" href="#">待出貨</a></li>
+          <li><a class="dropdown-item" href="#">已申請退貨</a></li>
+          <li><a class="dropdown-item" href="#">已同意退貨</a></li>
           <li><a class="dropdown-item" href="#">已出貨</a></li>
         </ul>
       </div>
@@ -40,8 +42,9 @@
           所有付款狀態
         </button>
         <ul class="dropdown-menu" aria-labelledby="filterPaymentStatus">
-          <li><a class="dropdown-item" href="#">未付款</a></li>
           <li><a class="dropdown-item" href="#">已付款</a></li>
+          <li><a class="dropdown-item" href="#">已退款</a></li>
+          <li><a class="dropdown-item" href="#">已取消授權</a></li>
         </ul>
       </div>
       <!-- 運送狀態 -->
@@ -51,9 +54,11 @@
           所有運送狀態
         </button>
         <ul class="dropdown-menu" aria-labelledby="filterDeliveryStatus">
-          <li><a class="dropdown-item" href="#">尚未開始</a></li>
+          <li><a class="dropdown-item" href="#">尚未收貨</a></li>
+          <li><a class="dropdown-item" href="#">處理中</a></li>
           <li><a class="dropdown-item" href="#">運送中</a></li>
           <li><a class="dropdown-item" href="#">已到貨</a></li>
+          <li><a class="dropdown-item" href="#">已退貨</a></li>
         </ul>
       </div>
       <!-- 選擇日期 -->
@@ -91,176 +96,168 @@
           </tr>
         </thead>
         <tbody>
-          <!-- 範例列 1 -->
-          <tr>
-            <td><input type="checkbox" /></td>
-            <td class="text-start">#3210</td>
-            <td class="text-start">Olivia Martin</td>
-            <td>2023-04-23</td>
-            <td>
-              <span class="badge bg-info">訂單成立</span>
-            </td>
-            <td>
-              <span class="badge bg-danger">未付款</span>
-            </td>
-            <td>
-              <span class="badge bg-secondary">尚未開始</span>
-            </td>
-            <td>$25.00</td>
-            <td>
-              <div class="dropdown">
-                <button class="btn btn-link text-dark p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-three-dots-vertical"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>編輯</a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-danger" href="#" onclick="return confirm('確定要刪除嗎？')">
-                      <i class="bi bi-trash me-2"></i>刪除
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <!-- 範例 2 -->
-          <tr>
-            <td><input type="checkbox" /></td>
-            <td class="text-start">#3209</td>
-            <td class="text-start">Vergil Chiu</td>
-            <td>2023-04-23</td>
-            <td>
-              <span class="badge bg-warning">待出貨</span>
-            </td>
-            <td>
-              <span class="badge bg-success">已付款</span>
-            </td>
-            <td>
-              <span class="badge bg-success">已到貨</span>
-            </td>
-            <td>$25.00</td>
-            <td>
-              <div class="dropdown">
-                <button class="btn btn-link text-dark p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-three-dots-vertical"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>編輯</a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-danger" href="#" onclick="return confirm('確定要刪除嗎？')">
-                      <i class="bi bi-trash me-2"></i>刪除
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-
-          <!-- 範例 3 -->
-          <tr>
-            <td><input type="checkbox" /></td>
-            <td class="text-start">#3209</td>
-            <td class="text-start">Tz Chi Chiu</td>
-            <td>2023-04-23</td>
-            <td>
-              <span class="badge bg-success">已出貨</span>
-            </td>
-            <td>
-              <span class="badge bg-success">已付款</span>
-            </td>
-            <td>
-              <span class="badge bg-primary">運送中</span>
-            </td>
-            <td>$25.00</td>
-            <td>
-              <div class="dropdown">
-                <button class="btn btn-link text-dark p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-three-dots-vertical"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>編輯</a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-danger" href="#" onclick="return confirm('確定要刪除嗎？')">
-                      <i class="bi bi-trash me-2"></i>刪除
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-
-          <!-- 範例 4 -->
-          <tr>
-            <td><input type="checkbox" /></td>
-            <td class="text-start">#3209</td>
-            <td class="text-start">Kazami Hayado</td>
-            <td>2023-05-01</td>
-            <td>
-              <span class="badge bg-success">已出貨</span>
-            </td>
-            <td>
-              <span class="badge bg-success">已付款</span>
-            </td>
-            <td>
-              <span class="badge bg-success">已收貨</span>
-            </td>
-            <td>$25.00</td>
-            <td>
-              <div class="dropdown">
-                <button class="btn btn-link text-dark p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-three-dots-vertical"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>編輯</a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-danger" href="#" onclick="return confirm('確定要刪除嗎？')">
-                      <i class="bi bi-trash me-2"></i>刪除
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <!-- 其他列… -->
+          <!-- 後端取得資料渲染訂單列表 -->
         </tbody>
+
       </table>
     </div>
 
     <!-- 4. 資料筆數 & 分頁 -->
     <nav class="mt-2" aria-label="Page navigation example">
       <ul class="pagination justify-content-center pagination-white">
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
+        <!-- 這裡的 <li> 會由 JS 動態生成 -->
       </ul>
     </nav>
+
+    <!-- 串接 API -->
+    <!-- API 功能：取得所有訂單的列表 (可選日期範圍參數) -->
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const tbody = document.querySelector("tbody");
+        const paginationContainer = document.querySelector(".pagination");
+
+        const API_BASE_URL = window.API_BASE_URL || "http://localhost:3000/api/admin";
+        const token = localStorage.getItem("adminToken");
+
+        // 封裝呼叫 API 的函式
+        async function fetchOrders(params = {}) {
+          const url = new URL(`${API_BASE_URL}/admin/orders`);
+          Object.entries(params).forEach(([key, value]) => {
+            if (value) url.searchParams.append(key, value);
+          });
+          console.log("🚀 request URL: ", url.toString());
+
+          const res = await fetch(url.toString(), {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          const result = await res.json();
+          if (!result.status) return;
+
+          renderOrders(result.data.orders);
+          renderPagination(result.data.pagination);
+        }
+
+        // 渲染訂單資料
+        function renderOrders(orders) {
+          console.log("👀 正在渲染的 orders[0]：", orders[0]);
+          tbody.innerHTML = "";
+          orders.forEach(order => {
+            console.log({ order });
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+            <td><input type="checkbox" /></td>            
+            <td class="text-start">
+              <a href="/ordersDetail?orderNumber=${order.orderNumber}">#${order.orderNumber}</a>
+            </td>                 
+            <td class="text-start">${order.userName}</td>
+            <td>${order.createdAt.split("T")[0]}</td>
+            <td><span class="badge ${getBadgeClass(order.orderStatus)}">${getLabel(order.orderStatus)}</span></td>
+            <td><span class="badge ${getBadgeClass(order.paymentStatus)}">${getLabel(order.paymentStatus)}</span></td>
+            <td><span class="badge ${getBadgeClass(order.shippingStatus)}">${getLabel(order.shippingStatus)}</span></td>
+            <td>$${order.finalAmount.toFixed(0)}</td>
+            <td>
+              <div class="dropdown">
+                <button class="btn btn-link text-dark p-0" data-bs-toggle="dropdown">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="/ordersEdit?orderNumber=${order.orderNumber}"><i class="bi bi-pencil me-2"></i>編輯</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item text-danger" href="#" onclick="return confirm('確定要刪除嗎？')"><i class="bi bi-trash me-2"></i>刪除</a></li>
+                </ul>
+              </div>
+            </td>
+          `;
+            tbody.appendChild(tr);
+          });
+        }
+
+        // 分頁渲染
+        function renderPagination(pagination) {
+          const { page, totalPages } = pagination;
+          let html = "";
+
+          html += `<li class="page-item ${page === 1 ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${page - 1}">&laquo;</a></li>`;
+
+          for (let i = 1; i <= totalPages; i++) {
+            html += `<li class="page-item ${i === page ? 'active' : ''}"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
+          }
+
+          html += `<li class="page-item ${page === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${page + 1}">&raquo;</a></li>`;
+
+          paginationContainer.innerHTML = html;
+
+          // 綁定事件
+          paginationContainer.querySelectorAll(".page-link").forEach(link => {
+            link.addEventListener("click", e => {
+              e.preventDefault();
+              const targetPage = Number(e.target.dataset.page);
+              if (!isNaN(targetPage)) {
+                fetchOrders({ page: targetPage });
+              }
+            });
+          });
+        }
+
+        // 狀態對應中文 & 樣式
+        function getLabel(key) {
+          const map = {
+            // 訂單狀態
+            pending: "待出貨",
+            shipped: "已出貨",
+            completed: "已完成",
+            cancelled: "已取消",
+            returnRequested: "已申請退貨",
+            returnAccepted: "已同意退貨",
+            returnRejected: "已拒絕退貨",
+
+            // 付款狀態
+            // unpaid: "未付款", // 不需要，因為只有付款成功才會有正式訂單
+            paid: "已付款",
+            refunded: "已退款",
+            authorizationVoided: "已取消授權",
+
+            // 運送狀態
+            notReceived: "尚未收貨",
+            processing: "處理中",
+            inTransit: "運送中",
+            delivered: "已到貨",
+            returned: "已退貨",
+          };
+          return map[key] || key;
+        }
+
+        function getBadgeClass(key) {
+          const colorMap = {
+            // 訂單狀態
+            "訂單成立": "bg-info text-dark",
+            "待出貨": "bg-warning text-dark",
+            "已出貨": "bg-primary text-white",
+            "已完成": "bg-success text-white",
+            "已取消": "bg-secondary text-white",
+            "退貨申請": "bg-warning text-dark",
+            "退貨接受": "bg-primary text-white",
+            "退貨駁回": "bg-danger text-white",
+
+            // 付款狀態
+            // "未付款": "bg-danger text-white",
+            "已付款": "bg-success text-white",
+            "已退款": "bg-secondary text-white",
+            "付款作廢": "bg-secondary text-white",
+
+            // 運送狀態
+            "尚未收貨": "bg-secondary text-white",
+            "處理中": "bg-info text-dark",
+            "運送中": "bg-primary text-white",
+            "已到貨": "bg-success text-white",
+            "已退貨": "bg-danger text-white",
+          };
+          return colorMap[key] || "bg-dark";
+        }
+
+        // 頁面初始加載
+        fetchOrders({ page: 1 });
+      });
+    </script>

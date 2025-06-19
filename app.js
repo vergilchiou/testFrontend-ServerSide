@@ -63,13 +63,35 @@ app.get('/orders', (req, res) => {
   res.render('orders');
 });
 
+app.get('/ordersEdit', (req, res) => {
+  res.render('ordersEdit');
+});
+
+app.get('/ordersDetail', (req, res) => {
+  res.render('ordersDetail');
+});
+
+
 app.get('/products', (req, res) => {
   res.render('products');
 });
 
-// 
+
+
 app.get('/productsAdd', (req, res) => {
   res.render('productsAdd', {
+    statuses: [
+      { value: 'up', label: '已上架' },
+      { value: 'down', label: '已下架' }
+    ],
+    ageRanges: [ /* 從資料庫撈 */],
+    themes: [ /* 從資料庫撈 */],
+    tags: [ /* 從資料庫撈 */]
+  });
+});
+
+app.get('/productsEdit', (req, res) => {
+  res.render('productsEdit', {
     statuses: [
       { value: 'up', label: '已上架' },
       { value: 'down', label: '已下架' }
@@ -97,14 +119,14 @@ app.get('/productsTheme', (req, res) => {
 });
 
 app.get('/productsTheme-create', (req, res) => {
-  console.log("🟢 成功進入 /productsTheme-create 路由");
+  // console.log("🟢 成功進入 /productsTheme-create 路由");
   console.log(req.params);
 
   res.render('productsTheme-create');
 });
 
 app.get('/productsTheme-edit/:categoryId', (req, res) => {
-  console.log("🟢 成功進入 /productsTheme-edit 路由");
+  // console.log("🟢 成功進入 /productsTheme-edit 路由");
   console.log(req.params);
 
   // const themeId = parseInt(req.params.categoryId, 10);
@@ -134,7 +156,8 @@ app.get('/discountCodes', (req, res) => {
   res.render('discountCodes');
 });
 
-app.get('/selected', (req, res) => {
+// 
+app.get('/selectedHot', (req, res) => {
 
   // demo 用
   // 之後從資料庫抓
@@ -176,6 +199,7 @@ app.get('/selected', (req, res) => {
     }
   ];
 
+
   // ✅ 預處理樣式與顯示用欄位
   const processedProducts = selectedProducts.map(p => ({
     ...p,
@@ -183,7 +207,115 @@ app.get('/selected', (req, res) => {
     enabledText: p.enabled ? '啟用' : '停用'
   }));
 
-  res.render('selected', { selectedProducts: processedProducts });
+  res.render('selectedHot', { selectedProducts: processedProducts });
+});
+
+// 
+app.get('/selectedNews', (req, res) => {
+
+  // demo 用
+  // 之後從資料庫抓
+  const selectedProducts = [
+    {
+      cover: '/images/product1.png',
+      name: '好餓的毛毛蟲',
+      category: '熱門商品',
+      position: 1,
+      enabled: true
+    },
+    {
+      cover: '/images/product2.png',
+      name: '晚安，月亮',
+      category: '熱門商品',
+      position: 2,
+      enabled: true
+    },
+    {
+      cover: '/images/product3.png',
+      name: '野獸國',
+      category: '熱門商品',
+      position: 3,
+      enabled: true
+    },
+    {
+      cover: '/images/product4.png',
+      name: '戴帽子的貓',
+      category: '最新商品',
+      position: 4,
+      enabled: false
+    },
+    {
+      cover: '/images/product5.png',
+      name: '棕熊，棕熊，你在看什麼？',
+      category: '最新商品',
+      position: 5,
+      enabled: false
+    }
+  ];
+
+
+  // ✅ 預處理樣式與顯示用欄位
+  const processedProducts = selectedProducts.map(p => ({
+    ...p,
+    categoryBadgeClass: p.category === '熱門商品' ? 'danger' : 'primary',
+    enabledText: p.enabled ? '啟用' : '停用'
+  }));
+
+  res.render('selectedNews', { selectedProducts: processedProducts });
+});
+
+// 
+app.get('/selectedBoxSet', (req, res) => {
+
+  // demo 用
+  // 之後從資料庫抓
+  const selectedProducts = [
+    {
+      cover: '/images/product1.png',
+      name: '好餓的毛毛蟲',
+      category: '熱門商品',
+      position: 1,
+      enabled: true
+    },
+    {
+      cover: '/images/product2.png',
+      name: '晚安，月亮',
+      category: '熱門商品',
+      position: 2,
+      enabled: true
+    },
+    {
+      cover: '/images/product3.png',
+      name: '野獸國',
+      category: '熱門商品',
+      position: 3,
+      enabled: true
+    },
+    {
+      cover: '/images/product4.png',
+      name: '戴帽子的貓',
+      category: '最新商品',
+      position: 4,
+      enabled: false
+    },
+    {
+      cover: '/images/product5.png',
+      name: '棕熊，棕熊，你在看什麼？',
+      category: '最新商品',
+      position: 5,
+      enabled: false
+    }
+  ];
+
+
+  // ✅ 預處理樣式與顯示用欄位
+  const processedProducts = selectedProducts.map(p => ({
+    ...p,
+    categoryBadgeClass: p.category === '熱門商品' ? 'danger' : 'primary',
+    enabledText: p.enabled ? '啟用' : '停用'
+  }));
+
+  res.render('selectedBoxSet', { selectedProducts: processedProducts });
 });
 
 app.get('/notifications', (req, res) => {

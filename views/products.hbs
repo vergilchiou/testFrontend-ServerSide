@@ -6,53 +6,39 @@
         <span class="input-group-text border-0 bg-transparent">
           <i class="bi bi-search"></i>
         </span>
-        <input type="search" class="form-control shadow-none">
+        <input type="search" class="form-control shadow-none" disabled>
       </div>
 
 
       <div class="btn-sm bg-dark rounded">
-        <button type="button" class="btn btn-dark text-nowrap">+ 添加商品</button>
+        <a href="/productsAdd" class="btn btn-dark text-nowrap">+ 添加商品</a>
       </div>
     </div>
 
     <!-- card-header -->
     <div class="card-header d-flex">
-      <div class="dropdown me-2">
-        <button class="btn bg-white border dropdown-toggle" type="button" id="dropdownMenuButton2"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          所有主題
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-          <li><a class="dropdown-item active" href="#">所有角色</a></li>
-          <li><a class="dropdown-item" href="#">管理員</a></li>
-          <li><a class="dropdown-item" href="#">VIP</a></li>
-          <li><a class="dropdown-item" href="#">客戶</a></li>
-        </ul>
-      </div>
+      <!-- 主題 -->
+      <select id="categoryFilter" class="form-select me-2">
+        <option value="">所有主題</option>
 
-      <div class="dropdown me-2">
-        <button class="btn bg-white border dropdown-toggle" type="button" id="dropdownMenuButton2"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          所有年齡
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-          <li><a class="dropdown-item active" href="#">所有狀態</a></li>
-          <li><a class="dropdown-item" href="#">已啟用</a></li>
-          <li><a class="dropdown-item" href="#">已禁用</a></li>
-        </ul>
-      </div>
+      </select>
 
-      <div class="dropdown me-2">
-        <button class="btn bg-white border dropdown-toggle" type="button" id="dropdownMenuButton2"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          所有狀態
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-          <li><a class="dropdown-item active" href="#">所有狀態</a></li>
-          <li><a class="dropdown-item" href="#">已啟用</a></li>
-          <li><a class="dropdown-item" href="#">已禁用</a></li>
-        </ul>
-      </div>
+      <!-- 年齡 -->
+      <select id="ageRangeFilter" class="form-select me-2">
+        <option value="">所有年齡</option>
+        <!-- <option value="1">0-3歲</option>
+        <option value="2">3-5歲</option>
+        <option value="3">5-7歲</option>
+        <option value="4">7-11歲</option>
+        <option value="5">11-13歲</option> -->
+      </select>
+
+      <!-- 狀態 -->
+      <select id="visibleFilter" class="form-select">
+        <option value="">所有狀態</option>
+        <option value="true">已上架</option>
+        <option value="false">已下架</option>
+      </select>
     </div>
 
     <div class="card-body">
@@ -73,281 +59,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><input type="checkbox" /></td>
-            <!-- ID -->
-            <td class="py-3">1</td>
-            <!-- 書籍封面 -->
-            <td><img src="#" alt="書籍封面" class="img-fluid"></td>
-            <!-- 名稱 -->
-            <td>薛丁格的貓</td>
-            <!-- 作者 -->
-            <td>陳詠棠</td>
-            <!-- 價格 -->
-            <td><i class="bi bi-currency-dollar"></i>399</td>
-            <!-- 庫存 -->
-            <td>30</td>
-            <!-- 狀態 -->
-            <td>
-              <span class="badge bg-dark">已上架</span>
-            </td>
-            <!-- 主題 -->
-            <td>
-              科學啟蒙
-            </td>
-            <!-- 年齡層 -->
-            <td>
-              5-8
-            </td>
-            <!-- 操作 -->
-            <td>
-              <div class="dropdown">
-                <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <i class="bi bi-three-dots fs-6"></i>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
-                  <li>
-                    <a class="dropdown-item" href="userManagement.html?editId=1">
-                      下架
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="userManagement.html?editId=1">
-                      編輯
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-danger" href="#"
-                      onclick="if(confirm('確定要刪除嗎？')) location.href='userManagement.html?deleteId=1';">
-                      刪除
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" /></td>
-            <!-- ID -->
-            <td class="py-3">2</td>
-            <!-- 書籍封面 -->
-            <td><img src="#" alt="書籍封面" class="img-fluid"></td>
-            <!-- 名稱 -->
-            <td>森林裡的音樂大師</td>
-            <!-- 作者 -->
-            <td>Polly Noakes</td>
-            <!-- 價格 -->
-            <td><i class="bi bi-currency-dollar"></i>650</td>
-            <!-- 庫存 -->
-            <td>52</td>
-            <!-- 狀態 -->
-            <td>
-              <span class="badge bg-dark">已上架</span>
-            </td>
-            <!-- 主題 -->
-            <td>
-              音樂欣賞
-            </td>
-            <!-- 年齡層 -->
-            <td>
-              0-3
-            </td>
-            <!-- 操作 -->
-            <td>
-              <div class="dropdown">
-                <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <i class="bi bi-three-dots fs-6"></i>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
-                  <li>
-                    <a class="dropdown-item" href="userManagement.html?editId=1">
-                      編輯
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-danger" href="#"
-                      onclick="if(confirm('確定要刪除嗎？')) location.href='userManagement.html?deleteId=1';">
-                      刪除
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" /></td>
-            <!-- ID -->
-            <td class="py-3">3</td>
-            <!-- 書籍封面 -->
-            <td><img src="#" alt="書籍封面" class="img-fluid"></td>
-            <!-- 名稱 -->
-            <td>薛丁格的貓</td>
-            <!-- 作者 -->
-            <td>陳詠棠</td>
-            <!-- 價格 -->
-            <td><i class="bi bi-currency-dollar"></i>399</td>
-            <!-- 庫存 -->
-            <td>30</td>
-            <!-- 狀態 -->
-            <td>
-              <span class="badge bg-dark">已上架</span>
-            </td>
-            <!-- 主題 -->
-            <td>
-              科學啟蒙
-            </td>
-            <!-- 年齡層 -->
-            <td>
-              5-8
-            </td>
-            <!-- 操作 -->
-            <td>
-              <div class="dropdown">
-                <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <i class="bi bi-three-dots fs-6"></i>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
-                  <li>
-                    <a class="dropdown-item" href="userManagement.html?editId=1">
-                      下架
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="userManagement.html?editId=1">
-                      編輯
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-danger" href="#"
-                      onclick="if(confirm('確定要刪除嗎？')) location.href='userManagement.html?deleteId=1';">
-                      刪除
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" /></td>
-            <!-- ID -->
-            <td class="py-3">4</td>
-            <!-- 書籍封面 -->
-            <td><img src="#" alt="書籍封面" class="img-fluid"></td>
-            <!-- 名稱 -->
-            <td>森林裡的音樂大師</td>
-            <!-- 作者 -->
-            <td>Polly Noakes</td>
-            <!-- 價格 -->
-            <td><i class="bi bi-currency-dollar"></i>650</td>
-            <!-- 庫存 -->
-            <td>52</td>
-            <!-- 狀態 -->
-            <td>
-              <span class="badge bg-white border text-dark">已下架</span>
-            </td>
-            <!-- 主題 -->
-            <td>
-              音樂欣賞
-            </td>
-            <!-- 年齡層 -->
-            <td>
-              0-3
-            </td>
-            <!-- 操作 -->
-            <td>
-              <div class="dropdown">
-                <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <i class="bi bi-three-dots fs-6"></i>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
-                  <li>
-                    <a class="dropdown-item" href="userManagement.html?editId=1">
-                      編輯
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-danger" href="#"
-                      onclick="if(confirm('確定要刪除嗎？')) location.href='userManagement.html?deleteId=1';">
-                      刪除
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" /></td>
-            <!-- ID -->
-            <td class="py-3">5</td>
-            <!-- 書籍封面 -->
-            <td><img src="#" alt="書籍封面" class="img-fluid"></td>
-            <!-- 名稱 -->
-            <td>薛丁格的貓</td>
-            <!-- 作者 -->
-            <td>陳詠棠</td>
-            <!-- 價格 -->
-            <td><i class="bi bi-currency-dollar"></i>399</td>
-            <!-- 庫存 -->
-            <td>30</td>
-            <!-- 狀態 -->
-            <td>
-              <span class="badge bg-white border text-dark">已下架</span>
-            </td>
-            <!-- 主題 -->
-            <td>
-              科學啟蒙
-            </td>
-            <!-- 年齡層 -->
-            <td>
-              5-8
-            </td>
-            <!-- 操作 -->
-            <td>
-              <div class="dropdown">
-                <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <i class="bi bi-three-dots fs-6"></i>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
-                  <li>
-                    <a class="dropdown-item" href="userManagement.html?editId=1">
-                      下架
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="userManagement.html?editId=1">
-                      編輯
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-danger" href="#"
-                      onclick="if(confirm('確定要刪除嗎？')) location.href='userManagement.html?deleteId=1';">
-                      刪除
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </td>
-          </tr>
+          <!--  -->
         </tbody>
 
       </table>
@@ -361,10 +73,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
             </div>
             <div class="modal-body p-0">
-              <button type="button" class="btn btn-light w-100 text-start py-2"
-                onclick="location.href='userManagement.html?editId=1'">
-                編輯
-              </button>
+              <a href="/productsEdit" class="btn btn-light w-100 text-start py-2">編輯</a>
               <hr class="my-0">
               <button type="button" class="btn btn-light w-100 text-start py-2 text-danger">
                 刪除
@@ -379,7 +88,7 @@
 </div>
 
 <nav class="mt-2" aria-label="Page navigation example">
-  <ul class="pagination justify-content-center pagination-white">
+  <ul class="pagination justify-content-center pagination-white" id="pagination">
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
@@ -395,3 +104,195 @@
     </li>
   </ul>
 </nav>
+
+
+<!-- 串接 API -->
+<script>
+  async function loadCategoryAndAgeOptions() {
+    const token = localStorage.getItem('adminToken');
+    const categorySelect = document.getElementById('categoryFilter');
+    const ageSelect = document.getElementById('ageRangeFilter');
+
+    const [catRes, ageRes] = await Promise.all([
+      fetch(`${window.API_BASE_URL}/admin/categories`, {
+        headers: { Authorization: `Bearer ${token}` }
+      }),
+      fetch(`${window.API_BASE_URL}/admin/ageRanges`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+    ]);
+
+    const catData = await catRes.json();
+    const ageData = await ageRes.json();
+
+    // 主題選單
+    if (catData.status && catData.data.categories.length) {
+      catData.data.categories.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat.id;
+        option.textContent = cat.name;
+        categorySelect.appendChild(option);
+      });
+    }
+
+    // 年齡選單
+    if (ageData.status && ageData.data.ageRanges.length) {
+      ageData.data.ageRanges.forEach(age => {
+        const option = document.createElement('option');
+        option.value = age.id;
+        option.textContent = age.name;
+        ageSelect.appendChild(option);
+      });
+    }
+    // const ageRanges = [
+    //   { id: 1, name: '0-3歲' },
+    //   { id: 2, name: '3-5歲' },
+    //   { id: 3, name: '5-7歲' },
+    //   { id: 4, name: '7-11歲' },
+    //   { id: 5, name: '11-13歲' }
+    // ];
+
+    ageRanges.forEach(age => {
+      const option = document.createElement('option');
+      option.value = age.id;
+      option.textContent = age.name;
+      ageSelect.appendChild(option);
+    });
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    const tbody = document.querySelector('tbody');
+    const paginationEl = document.getElementById('pagination');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const ageFilter = document.getElementById('ageRangeFilter');
+    const visibleFilter = document.getElementById('visibleFilter');
+
+    let page = 1;
+    const limit = 5;
+
+    loadCategoryAndAgeOptions(); // 先載入下拉選單
+
+
+    async function loadProducts() {
+      const token = localStorage.getItem('adminToken');
+      if (!token) {
+        alert('尚未登入或 token 遺失');
+        return;
+      }
+
+      const params = new URLSearchParams({ page, limit });
+      if (categoryFilter.value) params.append('categoryId', categoryFilter.value);
+      if (ageFilter.value) params.append('ageRangeId', ageFilter.value);
+      if (visibleFilter.value) params.append('isVisible', visibleFilter.value);
+
+      try {
+        const res = await fetch(`${window.API_BASE_URL}/admin/products?${params.toString()}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        const json = await res.json();
+        if (!json.status) {
+          console.error(json.message);
+          tbody.innerHTML = `<tr><td colspan="11" class="text-center text-danger">❌ ${json.message}</td></tr>`;
+          return;
+        }
+
+        renderTable(json.data.products);
+        renderPagination(json.data.pagination);
+      } catch (err) {
+        console.error('❌ 無法載入商品列表', err);
+      }
+    }
+
+    function renderTable(products) {
+      if (products.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="11" class="text-center">沒有符合條件的商品</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = products.map(p => `
+      <tr>
+        <td><input type="checkbox" /></td>
+        <td>${p.id}</td>
+        <td><img src="${p.mainImageUrl || '/images/placeholder.png'}" style="width: 50px; height: 50px; object-fit: cover;" /></td>
+        <td>${p.title}</td>
+        <td>${p.author}</td>
+        <td>$${p.price}</td>
+        <td>${p.stockQuantify}</td>
+        <td>${p.isVisible
+          ? `<span class="badge rounded-pill bg-dark text-white px-3 py-2">已上架</span>`
+          : `<span class="badge rounded-pill border border-dark text-dark bg-white px-3 py-2">已下架</span>`
+        }</td>
+        <td>${p.categoryName}</td>
+        <td>${p.ageRangeName}</td>
+        <td>
+         <div class="dropdown">
+          <button class="btn btn-link text-dark p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-three-dots-vertical"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li> 
+              <button class="dropdown-item d-flex align-items-center gap-2 btn-toggle-visible" data-id="${p.id}">
+                <i class="bi bi-eye-slash"></i> 下架
+              </button>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" href="/productsEdit?id=${p.id}">
+                <i class="bi bi-pencil"></i> 編輯
+              </a>
+            </li>
+          <li><hr class="dropdown-divider" /></li>
+            <li>
+              <button class="dropdown-item text-danger d-flex align-items-center gap-2 btn-delete" data-id="${p.id}">
+                <i class="bi bi-trash"></i> 刪除
+              </button>
+            </li>
+          </ul>
+          </div>
+         </td>
+      </tr>
+    `).join('');
+    }
+
+    function renderPagination({ page: currentPage, totalPages }) {
+      if (!paginationEl) return;
+
+      let html = '';
+
+      html += `<li class="page-item ${currentPage <= 1 ? 'disabled' : ''}">
+      <a class="page-link" href="#" data-page="${currentPage - 1}">&laquo;</a>
+    </li>`;
+
+      for (let i = 1; i <= totalPages; i++) {
+        html += `<li class="page-item ${i === currentPage ? 'active' : ''}">
+        <a class="page-link" href="#" data-page="${i}">${i}</a>
+      </li>`;
+      }
+
+      html += `<li class="page-item ${currentPage >= totalPages ? 'disabled' : ''}">
+      <a class="page-link" href="#" data-page="${currentPage + 1}">&raquo;</a>
+    </li>`;
+
+      paginationEl.innerHTML = html;
+
+      paginationEl.querySelectorAll('a.page-link').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          const p = parseInt(link.dataset.page, 10);
+          if (!isNaN(p)) {
+            page = p;
+            loadProducts();
+          }
+        });
+      });
+    }
+
+    [categoryFilter, ageFilter, visibleFilter].forEach(filterEl => {
+      filterEl.addEventListener('change', () => {
+        page = 1;
+        loadProducts();
+      });
+    });
+
+    loadProducts();
+  });
+</script>
