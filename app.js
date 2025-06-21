@@ -119,15 +119,13 @@ app.get('/productsTheme', (req, res) => {
 });
 
 app.get('/productsTheme-create', (req, res) => {
-  // console.log("🟢 成功進入 /productsTheme-create 路由");
-  console.log(req.params);
 
   res.render('productsTheme-create');
 });
 
 app.get('/productsTheme-edit/:categoryId', (req, res) => {
-  // console.log("🟢 成功進入 /productsTheme-edit 路由");
-  console.log(req.params);
+
+  // console.log(req.params);
 
   // const themeId = parseInt(req.params.categoryId, 10);
 
@@ -159,8 +157,7 @@ app.get('/discountCodes', (req, res) => {
 // 
 app.get('/selectedHot', (req, res) => {
 
-  // demo 用
-  // 之後從資料庫抓
+
   const selectedProducts = [
     {
       cover: '/images/product1.png',
