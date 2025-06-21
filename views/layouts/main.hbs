@@ -4,14 +4,15 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>後台</title>
+  <title>Little Chapter 管理後台</title>
   <!-- 環境判斷 -->
   <script type="module">
     import { getApiBaseUrl } from '/javascripts/util.js';
     window.API_BASE_URL = getApiBaseUrl();
   </script>
-
+  <!-- 載入 CSS 樣式 -->
   <link rel="stylesheet" href="/stylesheets/all.css">
+  <!-- 載入 Bootstrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 </head>
@@ -33,11 +34,11 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
     crossorigin="anonymous"></script>
+  <!-- 收合 sidebar -->
   <script src="/javascripts/all.js"></script>
+  <!-- 即時更改監控 -->
   <script src="http://localhost:35729/livereload.js"></script>
-  <script>
-    console.log("🔥 livereload.js loaded");
-  </script>
+  <!--  -->
 
   <!-- 驗證是否有登入，沒有登入則導回 admin/login -->
   <!-- 放在 index.hbs 等每個需驗證頁面的 <script> 裡 -->

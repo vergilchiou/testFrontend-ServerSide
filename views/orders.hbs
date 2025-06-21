@@ -28,11 +28,14 @@
           所有訂單狀態
         </button>
         <ul class="dropdown-menu" aria-labelledby="filterOrderStatus">
-          <li><a class="dropdown-item" href="#">訂單成立</a></li>
-          <li><a class="dropdown-item" href="#">待出貨</a></li>
-          <li><a class="dropdown-item" href="#">已申請退貨</a></li>
-          <li><a class="dropdown-item" href="#">已同意退貨</a></li>
-          <li><a class="dropdown-item" href="#">已出貨</a></li>
+          <li><a class="dropdown-item" href="#" data-value="">所有訂單狀態</a></li>
+          <li><a class="dropdown-item" href="#" data-value="pending">待出貨</a></li>
+          <li><a class="dropdown-item" href="#" data-value="shipped">已出貨</a></li>
+          <li><a class="dropdown-item" href="#" data-value="completed">已完成</a></li>
+          <li><a class="dropdown-item" href="#" data-value="cancelled">已取消</a></li>
+          <li><a class="dropdown-item" href="#" data-value="returnRequested">已申請退貨</a></li>
+          <li><a class="dropdown-item" href="#" data-value="returnAccepted">已同意退貨</a></li>
+          <li><a class="dropdown-item" href="#" data-value="returnRejected">已拒絕退貨</a></li>
         </ul>
       </div>
       <!-- 付款狀態 -->
@@ -42,10 +45,12 @@
           所有付款狀態
         </button>
         <ul class="dropdown-menu" aria-labelledby="filterPaymentStatus">
-          <li><a class="dropdown-item" href="#">已付款</a></li>
-          <li><a class="dropdown-item" href="#">已退款</a></li>
-          <li><a class="dropdown-item" href="#">已取消授權</a></li>
+          <li><a class="dropdown-item" href="#" data-value="">所有付款狀態</a></li>
+          <li><a class="dropdown-item" href="#" data-value="paid">已付款</a></li>
+          <li><a class="dropdown-item" href="#" data-value="refunded">已退款</a></li>
+          <li><a class="dropdown-item" href="#" data-value="authorizationVoided">已取消授權</a></li>
         </ul>
+
       </div>
       <!-- 運送狀態 -->
       <div class="dropdown">
@@ -54,29 +59,32 @@
           所有運送狀態
         </button>
         <ul class="dropdown-menu" aria-labelledby="filterDeliveryStatus">
-          <li><a class="dropdown-item" href="#">尚未收貨</a></li>
-          <li><a class="dropdown-item" href="#">處理中</a></li>
-          <li><a class="dropdown-item" href="#">運送中</a></li>
-          <li><a class="dropdown-item" href="#">已到貨</a></li>
-          <li><a class="dropdown-item" href="#">已退貨</a></li>
+          <li><a class="dropdown-item" href="#" data-value="">所有運送狀態</a></li>
+          <li><a class="dropdown-item" href="#" data-value="processing">處理中</a></li>
+          <li><a class="dropdown-item" href="#" data-value="notReceived">尚未收貨</a></li>
+          <li><a class="dropdown-item" href="#" data-value="inTransit">運送中</a></li>
+          <li><a class="dropdown-item" href="#" data-value="delivered">已到貨</a></li>
+          <li><a class="dropdown-item" href="#" data-value="returned">已退貨</a></li>
         </ul>
+
       </div>
       <!-- 選擇日期 -->
       <div>
-        <input type="date" class="form-control" placeholder="選擇日期" aria-label="選擇日期" />
+        <input type="date" class="form-control" placeholder="選擇日期" aria-label="選擇日期" id="filterDate">
       </div>
       <!-- 金額篩選 -->
-      <div class="dropdown">
+      <!-- <div class="dropdown">
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterAmount"
           data-bs-toggle="dropdown" aria-expanded="false">
           所有金額
         </button>
         <ul class="dropdown-menu" aria-labelledby="filterAmount">
-          <li><a class="dropdown-item" href="#">$0 - $10</a></li>
-          <li><a class="dropdown-item" href="#">$10 - $20</a></li>
-          <li><a class="dropdown-item" href="#">$20 以上</a></li>
+          <li><a class="dropdown-item" href="#" data-value="">所有金額</a></li>
+          <li><a class="dropdown-item" href="#" data-value="">$0 - $10</a></li>
+          <li><a class="dropdown-item" href="#" data-value="">$10 - $20</a></li>
+          <li><a class="dropdown-item" href="#" data-value="">$20 以上</a></li>
         </ul>
-      </div>
+      </div> -->
     </div>
 
     <!-- 3. 資料表 -->
@@ -112,45 +120,64 @@
     <!-- 串接 API -->
     <!-- API 功能：取得所有訂單的列表 (可選日期範圍參數) -->
     <script>
-      document.addEventListener("DOMContentLoaded", async () => {
+      document.addEventListener("DOMContentLoaded", () => {
         const tbody = document.querySelector("tbody");
         const paginationContainer = document.querySelector(".pagination");
-
-        const API_BASE_URL = window.API_BASE_URL || "http://localhost:3000/api/admin";
+        const API_BASE_URL = window.API_BASE_URL || "http://localhost:3000/api";
         const token = localStorage.getItem("adminToken");
 
-        // 封裝呼叫 API 的函式
-        async function fetchOrders(params = {}) {
-          const url = new URL(`${API_BASE_URL}/admin/orders`);
-          Object.entries(params).forEach(([key, value]) => {
-            if (value) url.searchParams.append(key, value);
-          });
-          console.log("🚀 request URL: ", url.toString());
+        const statusBtn = document.getElementById("filterOrderStatus");
+        const paymentBtn = document.getElementById("filterPaymentStatus");
+        const shippingBtn = document.getElementById("filterDeliveryStatus");
+        const dateInput = document.getElementById("filterDate");
 
-          const res = await fetch(url.toString(), {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-          const result = await res.json();
-          if (!result.status) return;
+        let filterValues = {
+          orderStatus: "",
+          paymentStatus: "",
+          shippingStatus: "",
+          date: "",
+          page: 1
+        };
 
-          renderOrders(result.data.orders);
-          renderPagination(result.data.pagination);
+        // 取得訂單資料
+        async function fetchOrders() {
+          const query = new URLSearchParams();
+
+          if (filterValues.orderStatus) query.append("orderStatus", filterValues.orderStatus);
+          if (filterValues.paymentStatus) query.append("paymentStatus", filterValues.paymentStatus);
+          if (filterValues.shippingStatus) query.append("shippingStatus", filterValues.shippingStatus);
+          if (filterValues.date) {
+            query.append("startDate", filterValues.date);
+            query.append("endDate", filterValues.date);
+          }
+          if (filterValues.page) query.append("page", filterValues.page);
+
+          try {
+            const res = await fetch(`${API_BASE_URL}/admin/orders?${query.toString()}`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+
+            const result = await res.json();
+            if (!result.status) return alert("查詢失敗：" + result.message);
+
+            renderOrders(result.data.orders);
+            renderPagination(result.data.pagination);
+          } catch (err) {
+            console.error("Fetch failed:", err);
+            alert("⚠️ 查詢失敗");
+          }
         }
 
-        // 渲染訂單資料
+        // 渲染訂單列表
         function renderOrders(orders) {
-          console.log("👀 正在渲染的 orders[0]：", orders[0]);
           tbody.innerHTML = "";
           orders.forEach(order => {
-            console.log({ order });
             const tr = document.createElement("tr");
             tr.innerHTML = `
-            <td><input type="checkbox" /></td>            
-            <td class="text-start">
-              <a href="/ordersDetail?orderNumber=${order.orderNumber}">#${order.orderNumber}</a>
-            </td>                 
+            <td><input type="checkbox" /></td>
+            <td class="text-start"><a href="/ordersDetail?orderNumber=${order.orderNumber}">#${order.orderNumber}</a></td>
             <td class="text-start">${order.userName}</td>
             <td>${order.createdAt.split("T")[0]}</td>
             <td><span class="badge ${getBadgeClass(order.orderStatus)}">${getLabel(order.orderStatus)}</span></td>
@@ -174,34 +201,55 @@
           });
         }
 
-        // 分頁渲染
-        function renderPagination(pagination) {
-          const { page, totalPages } = pagination;
+        // 渲染分頁
+        function renderPagination({ page, totalPages }) {
           let html = "";
 
-          html += `<li class="page-item ${page === 1 ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${page - 1}">&laquo;</a></li>`;
+          html += `<li class="page-item ${page === 1 ? 'disabled' : ''}">
+                   <a class="page-link" href="#" data-page="${page - 1}">&laquo;</a>
+                 </li>`;
 
           for (let i = 1; i <= totalPages; i++) {
-            html += `<li class="page-item ${i === page ? 'active' : ''}"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
+            html += `<li class="page-item ${i === page ? 'active' : ''}">
+                     <a class="page-link" href="#" data-page="${i}">${i}</a>
+                   </li>`;
           }
 
-          html += `<li class="page-item ${page === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${page + 1}">&raquo;</a></li>`;
+          html += `<li class="page-item ${page === totalPages ? 'disabled' : ''}">
+                   <a class="page-link" href="#" data-page="${page + 1}">&raquo;</a>
+                 </li>`;
 
           paginationContainer.innerHTML = html;
 
-          // 綁定事件
           paginationContainer.querySelectorAll(".page-link").forEach(link => {
             link.addEventListener("click", e => {
               e.preventDefault();
               const targetPage = Number(e.target.dataset.page);
               if (!isNaN(targetPage)) {
-                fetchOrders({ page: targetPage });
+                filterValues.page = targetPage;
+                fetchOrders();
               }
             });
           });
         }
 
-        // 狀態對應中文 & 樣式
+        // 下拉選單通用綁定
+        function setupDropdown(filterKey, buttonEl) {
+          const items = buttonEl.nextElementSibling.querySelectorAll(".dropdown-item");
+          items.forEach(item => {
+            item.addEventListener("click", e => {
+              e.preventDefault();
+              const value = item.getAttribute("data-value") || "";
+              const label = item.textContent;
+              filterValues[filterKey] = value;
+              filterValues.page = 1; // 切換篩選時重設回第一頁
+              buttonEl.textContent = label;
+              fetchOrders();
+            });
+          });
+        }
+
+        // 狀態名稱轉中文
         function getLabel(key) {
           const map = {
             // 訂單狀態
@@ -210,15 +258,14 @@
             completed: "已完成",
             cancelled: "已取消",
             returnRequested: "已申請退貨",
-            returnAccepted: "已同意退貨",
-            returnRejected: "已拒絕退貨",
+            returnAccepted: "已同意退貨",     // ✅ 對應後端 approveReturn
+            returnRejected: "已拒絕退貨",       // ✅ 對應後端 rejectReturn
+
 
             // 付款狀態
-            // unpaid: "未付款", // 不需要，因為只有付款成功才會有正式訂單
             paid: "已付款",
             refunded: "已退款",
             authorizationVoided: "已取消授權",
-
             // 運送狀態
             notReceived: "尚未收貨",
             processing: "處理中",
@@ -229,35 +276,46 @@
           return map[key] || key;
         }
 
+        // 樣式配色對應
         function getBadgeClass(key) {
-          const colorMap = {
+          const colormap = {
             // 訂單狀態
-            "訂單成立": "bg-info text-dark",
-            "待出貨": "bg-warning text-dark",
-            "已出貨": "bg-primary text-white",
-            "已完成": "bg-success text-white",
-            "已取消": "bg-secondary text-white",
-            "退貨申請": "bg-warning text-dark",
-            "退貨接受": "bg-primary text-white",
-            "退貨駁回": "bg-danger text-white",
-
+            pending: "bg-warning text-dark",
+            shipped: "bg-primary text-white",
+            completed: "bg-success text-white",
+            cancelled: "bg-secondary text-white",
+            returnRequested: "bg-warning text-dark",
+            returnAccepted: "bg-primary text-white",
+            returnRejected: "bg-danger text-white",
             // 付款狀態
-            // "未付款": "bg-danger text-white",
-            "已付款": "bg-success text-white",
-            "已退款": "bg-secondary text-white",
-            "付款作廢": "bg-secondary text-white",
-
+            paid: "bg-success text-white",
+            refunded: "bg-secondary text-white",
+            authorizationVoided: "bg-secondary text-white",
             // 運送狀態
-            "尚未收貨": "bg-secondary text-white",
-            "處理中": "bg-info text-dark",
-            "運送中": "bg-primary text-white",
-            "已到貨": "bg-success text-white",
-            "已退貨": "bg-danger text-white",
+            notReceived: "bg-secondary text-white",
+            processing: "bg-info text-dark",
+            inTransit: "bg-primary text-white",
+            delivered: "bg-success text-white",
+            returned: "bg-danger text-white",
           };
-          return colorMap[key] || "bg-dark";
+          return colormap[key] || "bg-dark";
         }
 
-        // 頁面初始加載
-        fetchOrders({ page: 1 });
+        // 日期篩選
+        if (dateInput) {
+          dateInput.addEventListener("change", () => {
+            filterValues.date = dateInput.value;
+            filterValues.page = 1;
+            fetchOrders();
+          });
+        }
+
+        // 初始化篩選器
+        setupDropdown("orderStatus", statusBtn);
+        setupDropdown("paymentStatus", paymentBtn);
+        setupDropdown("shippingStatus", shippingBtn);
+
+        // 初始載入
+        fetchOrders();
       });
     </script>
