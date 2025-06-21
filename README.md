@@ -87,6 +87,23 @@ API_BASE_URL=https://your-api-url.com/api/v1
 > 📁 預設啟動後會監聽 Handlebars 檔案並自動刷新頁面。
 
 ---
+## 🔗 API 串接
+所有資料皆透過 RESTful API 向後端取得，API 端點請參考 .env 檔案中的 API_BASE_URL 設定。
+
+* 範例：取得商品列表
+
+```javascript
+const token = localStorage.getItem('adminToken');
+const res = await fetch(`${API_BASE_URL}/admin/products`, {
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+});
+const data = await res.json();
+```
+
+
+
 
 ## 📁 專案資料夾結構
 
