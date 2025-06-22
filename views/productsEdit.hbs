@@ -152,7 +152,7 @@
     </div>
 
     <!-- 按鈕列 -->
-    <div class="modal-footer">
+    <div class="modal-footer my-2">
       <a type="button" href="/products" class="btn btn-secondary">取消</a>
       <button type="submit" form="addProductForm" class="btn btn-primary ms-2">確定新增</button>
     </div>
@@ -431,9 +431,6 @@
 
       formData.set("isPrimary", realMainIndex);
 
-      // 除錯用
-      console.log("🖼️ 有選檔案的欄位數量：", validFiles.length);
-      console.log("🖼️ 主圖原索引：", mainFormIndex, "→ 實際檔案索引：", realMainIndex);
 
       try {
         const res = await fetch(`${window.API_BASE_URL}/admin/products/${productId}/images`, {
@@ -447,7 +444,8 @@
         const json = await res.json();
         if (json.status) {
           alert('✅ 圖片上傳成功');
-          location.reload();
+          window.location.href = '/products?page=9999';
+          // location.reload();
         } else {
           alert('❌ 上傳失敗：' + json.message);
         }

@@ -116,115 +116,12 @@
             </div>
           </form>
         </div>
-
-        {{!-- productsAdd.hbs 裡的 商品圖片 分頁 --}}
-        <!-- 商品圖片 分頁 -->
-        <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
-          <form id="uploadImagesForm" enctype="multipart/form-data">
-            <div id="imageList"></div>
-            <button type="button" id="addImageBtn" class="btn btn-outline-primary w-100 mb-3">
-              ＋ 新增圖片
-            </button>
-            <button type="submit" class="btn btn-success w-100">📤 上傳圖片</button>
-          </form>
-        </div>
-
-
-        {{!-- 以下放在這支 hbs 最底，確保放在 <textarea> 或其他內容之後，也載完 bootstrap-icons --}}
-        <script>
-          (function () {
-            const imageList = document.getElementById('imageList');
-            const addBtn = document.getElementById('addImageBtn');
-
-            // Helper：把 index + 1
-            function addOne(n) { return n + 1; }
-
-            // 建立一個新的 .image-item 範本節點
-            function createImageItem(idx) {
-              const tpl = document.createElement('div');
-              tpl.className = 'card mb-3 image-item';
-              tpl.dataset.index = idx;
-              tpl.innerHTML = `
-                <div class="card-header d-flex justify-content-between align-items-center">
-                  <strong>圖片 ${addOne(idx)}</strong>
-                  <div>
-                    <button type="button" class="btn btn-sm btn-light move-up"><i class="bi bi-arrow-up"></i></button>
-                    <button type="button" class="btn btn-sm btn-light move-down"><i class="bi bi-arrow-down"></i></button>
-                    <button type="button" class="btn btn-sm btn-danger remove-image"><i class="bi bi-x"></i></button>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div class="mb-3">
-                    <label class="form-label">上傳圖片</label>
-                    <input type="file" name="productImages" class="form-control">
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input"
-                           type="radio"
-                           name="mainImage"
-                           value="${idx}"
-                           id="mainImage-${idx}">
-                    <label class="form-check-label" for="mainImage-${idx}">
-                      設為主要圖片
-                    </label>
-                  </div>
-                </div>`;
-              return tpl;
-            }
-
-            // 新增一個圖片區塊
-            addBtn.addEventListener('click', () => {
-              const idx = imageList.children.length;
-              imageList.appendChild(createImageItem(idx));
-            });
-
-            // 事件代理：刪除 / 上移 / 下移
-            imageList.addEventListener('click', e => {
-              const card = e.target.closest('.image-item');
-              if (!card) return;
-
-              // 刪除
-              if (e.target.closest('.remove-image')) {
-                card.remove();
-                return;
-              }
-
-              // 上移
-              if (e.target.closest('.move-up')) {
-                const prev = card.previousElementSibling;
-                if (prev) imageList.insertBefore(card, prev);
-                return;
-              }
-
-              // 下移
-              if (e.target.closest('.move-down')) {
-                const next = card.nextElementSibling;
-                if (next) imageList.insertBefore(next, card);
-                return;
-              }
-            });
-
-            // 在送出時，重新編排每個 .image-item 的 data-index 及標題
-            document.getElementById('uploadImagesForm').addEventListener('submit', () => {
-              [...imageList.children].forEach((card, i) => {
-                card.dataset.index = i;
-                card.querySelector('.card-header strong').textContent = `圖片 ${addOne(i)}`;
-                // 也要更新 radio 的 value/id/for
-                const radio = card.querySelector('input[type=radio]');
-                radio.value = i;
-                radio.id = `mainImage-${i}`;
-                card.querySelector('label[for^="mainImage-"]').setAttribute('for', radio.id);
-              });
-            });
-          })();
-        </script>
-
       </div>
     </div>
 
     <!-- 按鈕列 -->
-    <div class="modal-footer">      
-      <a  type="button" href="/products" class="btn btn-secondary">取消</a>      
+    <div class="modal-footer my-2">
+      <a type="button" href="/products" class="btn btn-secondary">取消</a>
       <button type="submit" form="addProductForm" class="btn btn-primary ms-2">確定新增</button>
     </div>
   </div>
@@ -270,10 +167,6 @@
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
 
-    // if (!productId) {
-    //   alert('❌ 無效的商品 ID');
-    //   return;
-    // }
 
     const ageSelect = document.getElementById('ageRange');
     const themeSelect = document.getElementById('theme');
@@ -315,12 +208,41 @@
     // 載入商品資料
     await loadSelectOptions();
 
+    // 測試工具
+    // 自動填入資料
+    // 基本欄位
+    document.getElementById('title').value = '測試用書名';
+    document.getElementById('author').value = '測試作者';
+    document.getElementById('illustrator').value = '測試插畫家';
+    document.getElementById('publisher').value = '測試出版社';
+    document.getElementById('isbn').value = '9781234567897';
+    document.getElementById('description').value = '這是測試用的書籍描述';
+
+    // Summernote - 書籍介紹（使用 HTML）
+    // $('#contentIntro').summernote('code', '<p>這是測試的書籍介紹 HTML</p>');
+
+    // 數值欄位
+    document.getElementById('price').value = '300';
+    document.getElementById('discountPrice').value = '250';
+    document.getElementById('stock').value = '50';
+    document.getElementById('pageCount').value = '32';
+
+    // 日期
+    document.getElementById('publishDate').value = '2025-06-22';
+
+    // 下拉選單（年齡層、分類）
+    ageSelect.value = '1';   // 替換成實際存在的 ageRangeId
+    themeSelect.value = '1'; // 替換成實際存在的 categoryId
+
+    // 狀態與標籤
+    statusSelect.value = 'true';
+    document.getElementById('tag-1').checked = true;
+    document.getElementById('tag-2').checked = false;
+    document.getElementById('tag-3').checked = false;
+
     // 送出更新表單
     document.getElementById('addProductForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-
-      // 除錯用
-      console.log('📘 ISBN 欄位送出的值：', document.getElementById('isbn').value);
 
       const payload = {
         title: document.getElementById('title').value.trim(),
@@ -342,7 +264,8 @@
         isBestseller: document.getElementById('tag-2').checked,
         isDiscount: document.getElementById('tag-3').checked
       };
-
+      console.log(payload.introductionHtml)
+      console.log(payload.introductionHtml.length)
 
       try {
         const res = await fetch(`${window.API_BASE_URL}/admin/products`, {
@@ -354,16 +277,22 @@
           body: JSON.stringify(payload)
         });
         const json = await res.json();
+
         if (json.status) {
           const newProductId = json.data?.id;
-          if (!newProductId) {
-            alert('⚠️ 商品建立成功，但未收到商品 ID，請手動回到商品列表');
-            window.location.href = '/products';
-            return;
-          }
+          const total = json.data?.total;
+          const limit = 5;
+          const totalPages = total ? Math.ceil(total / limit) : null;
 
-          alert('✅ 商品新增成功');
-          window.location.href = `/products/edit?id=${newProductId}`;
+          if (newProductId) {
+            alert('✅ 商品新增成功');
+            window.location.href = `/productsEdit?id=${newProductId}`;
+          } else {
+            alert('⚠️ 商品建立成功，但未收到商品 ID，請手動回到商品列表');
+            window.location.href = totalPages
+              ? `/products?page=${totalPages}`
+              : '/products';
+          }
         } else {
           alert('❌ 更新失敗：' + json.message);
         }
@@ -374,55 +303,4 @@
     });
   });
 
-  // ✅ 載入商品圖片到「商品圖片」tab (新增商品功能不需要)
-
-</script>
-
-
-<!-- 串接圖片上傳 API -->
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const token = localStorage.getItem('adminToken');
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
-
-    if (!productId) {
-      console.warn("❌ 缺少 productId，無法上傳圖片");
-      return;
-    }
-
-    const imageForm = document.getElementById('uploadImagesForm');
-
-    imageForm?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const formData = new FormData(imageForm);
-
-      // 找出被選為主圖的 index
-      const mainIndex = [...document.querySelectorAll('input[name="mainImage"]')]
-        .findIndex(input => input.checked);
-      formData.set('isPrimary', mainIndex !== -1 ? mainIndex : 0);
-
-      try {
-        const res = await fetch(`${window.API_BASE_URL}/admin/products/${productId}/images`, {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
-          body: formData
-        });
-
-        const json = await res.json();
-        if (json.status) {
-          alert('✅ 圖片上傳成功');
-          location.reload();
-        } else {
-          alert('❌ 上傳失敗：' + json.message);
-        }
-      } catch (err) {
-        console.error('❌ 上傳錯誤', err);
-        alert('伺服器錯誤');
-      }
-    });
-  });
 </script>
