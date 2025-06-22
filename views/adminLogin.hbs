@@ -6,7 +6,7 @@
       <label for="adminEnterEmail" class="form-label">帳號</label>
       <div class="input-group">
         <input type="email" class="form-control" id="adminEnterEmail" placeholder="請輸入Email">
-        <button class="btn btn-outline-secondary" type="button">
+        <button class="btn btn-outline-secondary email-icon-btn" type="button">
           <i class="bi bi-envelope"></i>
         </button>
       </div>
@@ -16,7 +16,7 @@
       <label for="adminEnterPassword" class="form-label">密碼</label>
       <div class="input-group">
         <input type="password" class="form-control" id="adminEnterPassword" placeholder="請輸入密碼">
-        <button class="btn btn-outline-secondary" type="button">
+        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
           <i class="bi bi-eye-slash"></i>
         </button>
       </div>
@@ -42,6 +42,56 @@
 </div>
 
 <!-- API -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Main icon
+    const emailIconBtn = document.querySelector('.email-icon-btn');
+    const emailInput = document.getElementById('adminEnterEmail');
+    if (emailIconBtn && emailInput) {
+      emailIconBtn.addEventListener('click', () => {
+        emailInput.focus();
+      });
+    }
+
+    // Eye icon
+    const togglePasswordBtn = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('adminEnterPassword');
+    if (togglePasswordBtn && passwordInput) {
+      togglePasswordBtn.addEventListener('click', () => {
+        const isPassword = passwordInput.type === 'password';
+        passwordInput.type = isPassword ? 'text' : 'password';
+
+        // 切換圖示
+        togglePasswordBtn.innerHTML = isPassword
+          ? '<i class="bi bi-eye"></i>'
+          : '<i class="bi bi-eye-slash"></i>';
+      });
+    }
+
+    // 記住我
+    const rememberMeCheckbox = document.getElementById('rememberMe');
+    const savedEmail = localStorage.getItem('rememberedEmail');
+    if (savedEmail && emailInput && rememberMeCheckbox) {
+      emailInput.value = savedEmail;
+      rememberMeCheckbox.checked = true;
+    }
+
+    // Submit 儲存 email
+    const loginForm = document.getElementById('adminLoginForm');
+    if (loginForm) {
+      loginForm.addEventListener('submit', (e) => {
+        if (rememberMeCheckbox.checked) {
+          localStorage.setItem('rememberedEmail', emailInput.value);
+        } else {
+          localStorage.removeItem('rememberedEmail');
+        }
+      });
+    }
+  });
+</script>
+
+
+
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("adminLoginForm").addEventListener("submit", async function (event) {
@@ -80,7 +130,7 @@
           localStorage.setItem("adminToken", token);
           localStorage.setItem("adminInfo", JSON.stringify(user));
           alert("登入成功！");
-          // window.location.href = "/index";
+          window.location.href = "/index";
         } else {
           alert(result.message || "登入失敗");
         }

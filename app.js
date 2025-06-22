@@ -52,6 +52,8 @@ app.get('/admin/login', (req, res) => {
 });
 
 app.get('/index', (req, res) => {
+  const time = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' });
+  console.log(`💡 [戳醒紀錄] 收到 GET /index 請求於 ${time}`);
   res.render('index');
 });
 
