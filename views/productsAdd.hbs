@@ -219,8 +219,8 @@
     document.getElementById('description').value = '這是測試用的書籍描述';
 
     // Summernote - 書籍介紹（使用 HTML）
-    // $('#contentIntro').summernote('code', '<p>這是測試的書籍介紹 HTML</p>');
-    document.getElementById('contentIntro').value = '這是測試的書籍介紹';
+    $('#contentIntro').summernote('code', '<p>這是測試的書籍介紹 HTML</p>');
+
     // 數值欄位
     document.getElementById('price').value = '300';
     document.getElementById('discountPrice').value = '250';
@@ -286,7 +286,7 @@
 
           if (newProductId) {
             alert('✅ 商品新增成功');
-            window.location.href = `/productsEdit?id=${newProductId}`;
+            window.location.href = `/productsEdit?id=${newProductId}&tab=image`;
           } else {
             alert('⚠️ 商品建立成功，但未收到商品 ID，請手動回到商品列表');
             window.location.href = totalPages

@@ -26,11 +26,6 @@
       <!-- 年齡 -->
       <select id="ageRangeFilter" class="form-select me-2">
         <option value="">所有年齡</option>
-        <!-- <option value="1">0-3歲</option>
-        <option value="2">3-5歲</option>
-        <option value="3">5-7歲</option>
-        <option value="4">7-11歲</option>
-        <option value="5">11-13歲</option> -->
       </select>
 
       <!-- 狀態 -->
@@ -166,7 +161,10 @@
     const ageFilter = document.getElementById('ageRangeFilter');
     const visibleFilter = document.getElementById('visibleFilter');
 
-    let page = 1;
+    // let page = 1;
+    const urlParams = new URLSearchParams(window.location.search);
+    let page = parseInt(urlParams.get('page')) || 1;
+
     const limit = 5;
 
     loadCategoryAndAgeOptions(); // 先載入下拉選單
@@ -280,6 +278,7 @@
           const p = parseInt(link.dataset.page, 10);
           if (!isNaN(p)) {
             page = p;
+            history.pushState(null, '', `/products?page=${p}`); // ✅ 改變網址但不刷新頁面
             loadProducts();
           }
         });

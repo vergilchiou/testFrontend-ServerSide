@@ -44,7 +44,7 @@
 <!-- API -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Main icon
+    // Email icon 點擊後 focus
     const emailIconBtn = document.querySelector('.email-icon-btn');
     const emailInput = document.getElementById('adminEnterEmail');
     if (emailIconBtn && emailInput) {
@@ -53,7 +53,7 @@
       });
     }
 
-    // Eye icon
+    // 密碼眼睛切換
     const togglePasswordBtn = document.getElementById('togglePassword');
     const passwordInput = document.getElementById('adminEnterPassword');
     if (togglePasswordBtn && passwordInput) {
@@ -61,35 +61,44 @@
         const isPassword = passwordInput.type === 'password';
         passwordInput.type = isPassword ? 'text' : 'password';
 
-        // 切換圖示
         togglePasswordBtn.innerHTML = isPassword
           ? '<i class="bi bi-eye"></i>'
           : '<i class="bi bi-eye-slash"></i>';
       });
     }
 
-    // 記住我
+    // 記住我 - 自動填入
     const rememberMeCheckbox = document.getElementById('rememberMe');
     const savedEmail = localStorage.getItem('rememberedEmail');
-    if (savedEmail && emailInput && rememberMeCheckbox) {
+    const savedPassword = localStorage.getItem('rememberedPassword');
+
+    if (savedEmail && emailInput) {
       emailInput.value = savedEmail;
+    }
+
+    if (savedPassword && passwordInput) {
+      passwordInput.value = savedPassword;
+    }
+
+    if ((savedEmail || savedPassword) && rememberMeCheckbox) {
       rememberMeCheckbox.checked = true;
     }
 
-    // Submit 儲存 email
+    // 登入時儲存
     const loginForm = document.getElementById('adminLoginForm');
     if (loginForm) {
       loginForm.addEventListener('submit', (e) => {
         if (rememberMeCheckbox.checked) {
           localStorage.setItem('rememberedEmail', emailInput.value);
+          localStorage.setItem('rememberedPassword', passwordInput.value);
         } else {
           localStorage.removeItem('rememberedEmail');
+          localStorage.removeItem('rememberedPassword');
         }
       });
     }
   });
 </script>
-
 
 
 <script>

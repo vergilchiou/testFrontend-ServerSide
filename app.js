@@ -79,6 +79,7 @@ app.get('/products', (req, res) => {
 });
 
 
+
 app.get('/productsAdd', (req, res) => {
   res.render('productsAdd', {
     statuses: [

@@ -11,18 +11,20 @@
       <!-- 分頁標籤 -->
       <ul class="nav nav-tabs" id="productTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button"
-            role="tab">基本資料</button>
+          <!-- <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button"
+            role="tab">基本資料</button> -->
+          <a class="nav-link" id="tab-info-tab" data-bs-toggle="tab" href="#tab-info">基本資料</a>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="images-tab" data-bs-toggle="tab" data-bs-target="#images" type="button"
-            role="tab">商品圖片</button>
+          <!-- <button class="nav-link" id="images-tab" data-bs-toggle="tab" data-bs-target="#images" type="button"
+            role="tab">商品圖片</button> -->
+          <a class="nav-link" id="tab-image-tab" data-bs-toggle="tab" href="#tab-image">商品圖片</a>
         </li>
       </ul>
 
       <div class="tab-content pt-3" id="productTabContent">
         <!-- 基本資料 分頁 -->
-        <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+        <div class="tab-pane fade show" id="tab-info" role="tabpanel" aria-labelledby="tab-info-tab">
           <form id="addProductForm" data-product-id="{{productId}}">
 
             <div class="row g-3">
@@ -118,7 +120,7 @@
         </div>
 
         <!-- 商品圖片 分頁 -->
-        <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+        <div class="tab-pane fade" id="tab-image" role="tabpanel" aria-labelledby="tab-image-tab">
           <form id="uploadImagesForm" enctype="multipart/form-data">
             <div id="imageList">
               {{#each [0,1,2,3,4,5]}}
@@ -198,6 +200,13 @@
     const token = localStorage.getItem('adminToken');
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
+
+    // 切換分頁
+    const activeTab = urlParams.get('tab') || 'info';
+    const tabTrigger = document.querySelector(`#tab-${activeTab}-tab`);
+    if (tabTrigger) {
+      new bootstrap.Tab(tabTrigger).show();
+    }
 
     if (!productId) {
       alert('❌ 無效的商品 ID');
@@ -444,8 +453,10 @@
         const json = await res.json();
         if (json.status) {
           alert('✅ 圖片上傳成功');
-          window.location.href = '/products?page=9999';
-          // location.reload();
+
+          setTimeout(() => {
+            window.location.href = '/products?page=9999';
+          }, 1500);
         } else {
           alert('❌ 上傳失敗：' + json.message);
         }
