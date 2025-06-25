@@ -175,7 +175,8 @@
     // 載入主題與年齡層選單
     async function loadSelectOptions() {
       const [themeRes, ageRes] = await Promise.all([
-        fetch(`${window.API_BASE_URL}/admin/categories`, {
+        // limit = 99
+        fetch(`${window.API_BASE_URL}/admin/categories?limit=99`, {
           headers: { Authorization: `Bearer ${token}` }
         }),
         fetch(`${window.API_BASE_URL}/admin/ageRanges`, {
@@ -185,6 +186,9 @@
 
       const themeData = await themeRes.json();
       const ageData = await ageRes.json();
+
+      console.log(`themeData: ${themeData}`);
+      console.log(`ageData: ${ageData}`);
 
       if (themeData.status) {
         themeData.data.categories.forEach(cat => {
