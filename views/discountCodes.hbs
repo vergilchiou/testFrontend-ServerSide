@@ -1,6 +1,6 @@
 <!-- 主要內容 -->
 <div class=" mt-5">
-  <h4 class="fw-bold mb-4">折扣碼管理</h4>
+  <h4 class="fw-bold m-4">折扣碼管理</h4>
   <div class="card px-2">
     <div
       class="card-header d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3 bg-transparent">
@@ -59,99 +59,8 @@
               <th scope="col">操作</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- 範例列：啟用狀態 -->
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>2</td>
-              <td>WELCOME10</td>
-              <td>10%</td>
-              <td>2023-01-01</td>
-              <td>2023-12-31</td>
-              <td>
-                <div class="form-check form-switch d-inline-block">
-                  <input class="form-check-input" type="checkbox" id="toggle2" checked>
-                  <label class="form-check-label" for="toggle2">啟用</label>
-                </div>
-              </td>
-              <td>
-                <div class="dropdown">
-                  <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown1"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-three-dots fs-6"></i>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="actionDropdown1">
-                    <li>
-                      <a class="dropdown-item" href="userManagement.html?editId=1">
-                        編輯
-                      </a>
-                    </li>
-                    <li>
-                      <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                      <a class="dropdown-item text-danger" href="#"
-                        onclick="if(confirm('確定要刪除嗎？')) location.href='userManagement.html?deleteId=1';">
-                        刪除
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <!-- 其他列… -->
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>7</td>
-              <td>BIRTHDAY20</td>
-              <td>20%</td>
-              <td>2023-01-01</td>
-              <td>2023-12-31</td>
-              <td>
-                <div class="form-check form-switch d-inline-block">
-                  <input class="form-check-input" type="checkbox" id="toggle7" checked>
-                  <label class="form-check-label" for="toggle7">啟用</label>
-                </div>
-              </td>
-              <td>
-                <!-- 同上操作按鈕 -->
-              </td>
-            </tr>
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>8</td>
-              <td>MEMBER15</td>
-              <td>15%</td>
-              <td>2023-01-01</td>
-              <td>2023-12-31</td>
-              <td>
-                <div class="form-check form-switch d-inline-block">
-                  <input class="form-check-input" type="checkbox" id="toggle8" checked>
-                  <label class="form-check-label" for="toggle8">啟用</label>
-                </div>
-              </td>
-              <td>
-                <!-- 同上操作按鈕 -->
-              </td>
-            </tr>
-            <!-- 範例列：停用狀態 -->
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>9</td>
-              <td>HOLIDAY10</td>
-              <td>10%</td>
-              <td>2023-12-01</td>
-              <td>2023-12-31</td>
-              <td>
-                <div class="form-check form-switch d-inline-block">
-                  <input class="form-check-input" type="checkbox" id="toggle9">
-                  <label class="form-check-label" for="toggle9">停用</label>
-                </div>
-              </td>
-              <td>
-                <!-- 同上操作按鈕 -->
-              </td>
-            </tr>
+          <tbody id="discountCodeTbody">
+            <!-- JS 動態生成 -->
           </tbody>
         </table>
       </div>
@@ -180,4 +89,94 @@
 
 
 <!-- JavaScript Bundle with Popper -->
-<script src="./javascripts/discountCodeSwitchs.js"></script>
+<!-- <script src="./javascripts/discountCodeSwitchs.js"></script> -->
+
+<script>
+  function formatDiscount(type, value) {
+    return type === "percentage" ? `${value * 100}%` : `$${value}`;
+  }
+
+  function formatDate(isoStr) {
+    const date = new Date(isoStr);
+    return date.toISOString().split("T")[0];
+  }
+
+  function renderDiscountTable(data) {
+    const tbody = document.getElementById("discountCodeTbody");
+    tbody.innerHTML = "";
+
+    data.forEach((item) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td><input type="checkbox"></td>
+        <td>${item.id}</td>
+        <td>${item.code}</td>
+        <td>${formatDiscount(item.type, item.value)}</td>
+        <td>${formatDate(item.valid_from)}</td>
+        <td>${formatDate(item.valid_until)}</td>
+        <td>
+          <div class="form-check form-switch d-inline-block">
+            <input class="form-check-input" type="checkbox" id="toggle${item.id}" ${item.is_active ? "checked" : ""}>
+            <label class="form-check-label" for="toggle${item.id}">${item.is_active ? "啟用" : "停用"}</label>
+          </div>
+        </td>
+        <td>
+          <div class="dropdown">
+            <button class="btn btn-link text-dark p-0" type="button" id="actionDropdown${item.id}" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots fs-6"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="actionDropdown${item.id}">
+              <li><a class="dropdown-item" href="/discountEdit?id=${item.id}">編輯</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="#" onclick="handleDelete(${item.id})">刪除</a></li>
+            </ul>
+          </div>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    bindStatusToggles();
+  }
+
+  function bindStatusToggles() {
+    document.querySelectorAll('.form-check.form-switch input[type="checkbox"]').forEach((checkbox) => {
+      const label = document.querySelector(`label[for="${checkbox.id}"]`);
+      const updateLabel = () => {
+        label.textContent = checkbox.checked ? '啟用' : '停用';
+      };
+      updateLabel();
+      checkbox.addEventListener("change", updateLabel);
+    });
+  }
+
+  async function fetchDiscountCodes() {
+    try {
+      const token = localStorage.getItem("adminToken");
+      const response = await fetch(`${window.API_BASE_URL}/admin/discount-codes`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+
+      const result = await response.json();
+
+      if (result.status && Array.isArray(result.data)) {
+        renderDiscountTable(result.data);
+      } else {
+        alert("載入折扣碼清單失敗：" + result.message);
+      }
+    } catch (error) {
+      console.error("載入折扣碼發生錯誤", error);
+      alert("發生錯誤，無法取得折扣碼資料");
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", fetchDiscountCodes);
+
+  function handleDelete(id) {
+    alert(`（示意）你按了刪除折扣碼 ID ${id}`);
+    // 🚧 TODO：串接 DELETE API 完成刪除後重新 fetchDiscountCodes()
+  }
+</script>
