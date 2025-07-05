@@ -6,45 +6,40 @@
 
     <div class="d-flex align-items-center">
       <!-- 通知區塊 -->
-      <div class="notification d-flex me-3">
-        <div class="d-flex border rounded-pill bg-warning me-2 p-1 note-pill">
+      <ul class="nav nav-pills">
+        <li class="nav-item me-2">
+          <a class="nav-link rounded-pill fw-bold active" aria-current="page" href="#"
+            style="color: #c24614; background-color: #fff7ed;"><i class="bi bi-truck me-2"></i>待發貨訂單：
+            <span class="rounded-pill" id="pendingShipments" style="color: #c24614"></span>
+          </a>
+        </li>
+        <!-- #fef2f2 -->
+        <li class="nav-item me-4">
+          <a class="nav-link rounded-pill fw-bold active" href="#" style="color: #c24614; background-color: #fef2f2;"><i
+              class="bi bi-exclamation-diamond-fill me-2"></i>待處理退貨：
+            <span class=" rounded-pill" id="pendingReturns" style="color: #d56f70"></span>
+          </a>
+        </li>
 
-          <span>待發貨訂單：</span>
-          <span class="badge rounded-pill bg-light text-dark" id="pendingShipments"></span>
-        </div>
-        <div class="d-flex border rounded-pill bg-danger me-2 p-1 note-pill">
-
-          <span>待處理退貨：</span>
-          <span class="badge rounded-pill bg-light text-dark" id="pendingReturns"></span>
-        </div>
-        <!-- <div class="d-flex border rounded-pill bg-info bg-gradient me-2 p-1 note-pill">
-          <span><i class="bi bi-currency-dollar"></i></span>
-          <span>最近通知：</span>
-          <span class="badge rounded-pill bg-light text-dark">5</span>
-        </div> -->
-      </div>
-
-      <!-- 管理者選單 -->
-      <div class="dropdown">
-        <button class="btn btn-white border-light dropdown-toggle rounded-pill" type="button" id="adminDropdown"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          管理
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
-          <li class="px-3 py-2">
-            <div class="fw-bold">管理者</div>
-            <hr class="my-1">
-            <div id="adminName"></div>
-            <!-- <div>姓名：{{admin.name}}</div> -->
-            <div id="adminEmail"></div>
-            <!-- <div>信箱：{{admin.email}}</div> -->
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li><a class="dropdown-item text-danger" href="#" onclick="logout()">登出</a></li>
-        </ul>
-      </div>
+        <!-- 管理者選單 -->
+        <li class="nav-item me-2 dropdown">
+          <a class="nav-link rounded-pill active dropdown-toggle bg-primary fw-bold" data-bs-toggle="dropdown"
+            aria-expanded="false" href="#">管理
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
+            <li class="px-3 py-2">
+              <div class="fw-bold">管理者</div>
+              <hr class="my-1">
+              <div id="adminName"></div>
+              <div id="adminEmail"></div>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item text-danger" href="#" onclick="logout()">登出</a></li>
+          </ul>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
