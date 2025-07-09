@@ -164,6 +164,48 @@
 
 
 <script>
+  function getLabel(key) {
+    const map = {
+      pending: "待出貨",
+      shipped: "已出貨",
+      completed: "已完成",
+      cancelled: "已取消",
+      returnRequested: "已申請退貨",
+      returnAccepted: "已同意退貨",
+      returnRejected: "已拒絕退貨",
+      paid: "已付款",
+      refunded: "已退款",
+      authorizationVoided: "已取消授權",
+      notReceived: "尚未收貨",
+      processing: "處理中",
+      inTransit: "運送中",
+      delivered: "已到貨",
+      returned: "已退貨",
+    };
+    return map[key] || key;
+  }
+
+  function getBadgeClass(key) {
+    const colormap = {
+      pending: "bg-warning text-dark",
+      shipped: "bg-primary text-white",
+      completed: "bg-success text-white",
+      cancelled: "bg-secondary text-white",
+      returnRequested: "bg-warning text-dark",
+      returnAccepted: "bg-primary text-white",
+      returnRejected: "bg-danger text-white",
+      paid: "bg-success text-white",
+      refunded: "bg-secondary text-white",
+      authorizationVoided: "bg-secondary text-white",
+      notReceived: "bg-secondary text-white",
+      processing: "bg-info text-dark",
+      inTransit: "bg-primary text-white",
+      delivered: "bg-success text-white",
+      returned: "bg-danger text-white",
+    };
+    return colormap[key] || "bg-dark";
+  }
+
   document.addEventListener("DOMContentLoaded", async () => {
     const token = localStorage.getItem("adminToken");
     const urlParams = new URLSearchParams(window.location.search);
@@ -185,7 +227,9 @@
 
     // 訂單資訊渲染
     document.getElementById("infoOrderNumber").textContent = data.orderNumber;
-    document.getElementById("infoOrderStatus").textContent = data.orderStatus;
+    // document.getElementById("infoOrderStatus").textContent = data.orderStatus;
+    const orderStatusEl = document.getElementById("infoOrderStatus");
+    orderStatusEl.innerHTML = `<span class="badge ${getBadgeClass(data.orderStatus)}">${getLabel(data.orderStatus)}</span>`;
     document.getElementById("infoCreatedAt").textContent = new Date(data.createdAt).toLocaleString();
     document.getElementById("infoUserName").textContent = data.user?.name || "—";
     document.getElementById("infoUserPhone").textContent = data.user?.phone || "—";
@@ -200,7 +244,10 @@
 
     // 物流資訊渲染
     document.getElementById("infoShippingMethod").textContent = data.shippingInfo?.shippingMethod || "—";
-    document.getElementById("infoShippingStatus").textContent = data.shippingStatus;
+    // document.getElementById("infoShippingStatus").textContent = data.shippingStatus;
+    const shippingStatusEl = document.getElementById("infoShippingStatus");
+    shippingStatusEl.innerHTML = `<span class="badge ${getBadgeClass(data.shippingStatus)}">${getLabel(data.shippingStatus)}</span>`;
+
     document.getElementById("infoRecipientName").textContent = data.shippingInfo?.recipientName || "—";
     document.getElementById("infoRecipientPhone").textContent = data.shippingInfo?.recipientPhone || "—";
     document.getElementById("infoShippingAddress").textContent = data.shippingInfo?.shippingAddress || "—";
@@ -211,7 +258,9 @@
 
     // 付款資訊渲染
     document.getElementById("infoPaymentMethod").textContent = data.paymentMethod;
-    document.getElementById("infoPaymentStatus").textContent = data.paymentStatus;
+    // document.getElementById("infoPaymentStatus").textContent = data.paymentStatus;
+    const paymentStatusEl = document.getElementById("infoPaymentStatus");
+    paymentStatusEl.innerHTML = `<span class="badge ${getBadgeClass(data.paymentStatus)}">${getLabel(data.paymentStatus)}</span>`;
     document.getElementById("infoTransactionNumber").textContent = data.transactionNumber || "—";
     document.getElementById("infoPaidAt").textContent = data.paidAt ? new Date(data.paidAt).toLocaleString() : "—";
 
