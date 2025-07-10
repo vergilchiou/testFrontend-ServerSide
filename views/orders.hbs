@@ -177,7 +177,7 @@
             const tr = document.createElement("tr");
             tr.innerHTML = `
             <td><input type="checkbox" /></td>
-            <td class="text-start"><a href="/ordersDetail?orderNumber=${order.orderNumber}">#${order.orderNumber}</a></td>
+            <td class="text-start"><a href="/ordersDetail?orderNumber=${order.orderNumber}">${order.orderNumber}</a></td>
             <td class="text-start">${order.userName}</td>
             <td>${order.createdAt.split("T")[0]}</td>
             <td><span class="badge ${getBadgeClass(order.orderStatus)}">${getLabel(order.orderStatus)}</span></td>
