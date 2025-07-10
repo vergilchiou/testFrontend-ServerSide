@@ -27,7 +27,7 @@
 
             <div class="row g-3">
               <div class="col-md-6">
-                <label for="title" class="form-label">書籍標題 *</label>
+                <label for="title" class="form-label">書籍標題 <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="title" name="title" required>
               </div>
               <div class="col-md-6">
@@ -64,7 +64,7 @@
               </div>
               <hr class="my-4">
               <div class="col-md-4">
-                <label for="price" class="form-label">售價 *</label>
+                <label for="price" class="form-label">售價 <span class="text-danger">*</span></label>
                 <input type="number" step="0.01" class="form-control" id="price" name="price" required>
               </div>
               <div class="col-md-4">
@@ -72,7 +72,7 @@
                 <input type="number" step="0.01" class="form-control" id="discountPrice" name="discountPrice">
               </div>
               <div class="col-md-4">
-                <label for="stock" class="form-label">庫存數量 *</label>
+                <label for="stock" class="form-label">庫存數量 <span class="text-danger">*</span></label>
                 <input type="number" class="form-control" id="stock" name="stock" required>
               </div>
               <div class="col-md-3">
@@ -84,14 +84,13 @@
                 <input type="date" class="form-control" id="publishDate" name="publishDate">
               </div>
               <div class="col-md-3">
-                <label for="ageRange" class="form-label">年齡層分類 *</label>
+                <label for="ageRange" class="form-label">年齡層分類 <span class="text-danger">*</span></label>
                 <select class="form-select" id="ageRange" name="ageRange" required>
                   <option value="">請選擇年齡層</option>
                 </select>
-
               </div>
               <div class="col-md-3">
-                <label for="theme" class="form-label">商品主題 *</label>
+                <label for="theme" class="form-label">商品主題 <span class="text-danger">*</span></label>
                 <select class="form-select" id="theme" name="theme" required>
                   <option value="">請選擇主題</option>
                 </select>
@@ -113,6 +112,7 @@
                   </div>
                 </div>
               </div>
+
             </div>
           </form>
         </div>
