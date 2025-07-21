@@ -127,18 +127,21 @@
         });
 
         const result = await res.json();
-        // console.log(`資料在這裡：${result}`);
-        console.log(result);
-        console.log(result.data);
-        console.log(result.data.user);
+
 
         if (res.ok && result.status) {
           const { token, user } = result.data
-
-          // ✅ 成功登入後儲存 token 和 user 資訊
+          if (!token || !user) {
+            alert("登入失敗，請檢查帳號或密碼");
+            return;
+          }
+          // ✅ 儲存 token 和 user 資訊到 localStorage
           localStorage.setItem("adminToken", token);
           localStorage.setItem("adminInfo", JSON.stringify(user));
-          alert("登入成功！");
+
+          alert(`歡迎管理員 ${user.name} 登入成功！`);
+
+          // ✅ 導向到後台首頁
           window.location.href = "/index";
         } else {
           alert(result.message || "登入失敗");
